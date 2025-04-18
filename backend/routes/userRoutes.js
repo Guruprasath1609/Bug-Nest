@@ -11,11 +11,21 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   try {
+    if(!name){
+      return res.status(404).json({namemessage:"Name is required"})
+    }
+    if(!email){
+      return res.status(404).json({emailmessage:"Email is required"})
+    }
+    if(!password){
+      return res.status(404).json({passwordmessage:"Password is required"})
+    }
     let user = await User.findOne({ email });
     if (user) return res.status(404).json({ message: "User already exists" });
     user = new User({ name, email, password });
     await user.save();
     const payload = { user: { id: user._id, role: user.role } };
+    
 
     jwt.sign(
       payload,
@@ -47,6 +57,12 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
+    if(!email) {
+      return res.status(404).json({noemail:"Email is required"})
+    }
+    if(!password){
+      return res.status(404).json({nopassword:"Password is required"})
+    }
     let user = await User.findOne({ email });
     if (!user) return res.status(404).json({ usermessage: "User not registered" });
     const isMatch = await user.matchPassword(password);

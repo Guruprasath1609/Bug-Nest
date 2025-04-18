@@ -87,6 +87,7 @@ router.put('/update-ticket',protect,admin,async (req,res)=>{
              if (assignTo !== undefined) 
             updateTicket.assignTo = assignTo;
             await updateTicket.save()
+            return res.status(200).json({message:"Success"})
             
         }else{
             console.log('No ticket found');

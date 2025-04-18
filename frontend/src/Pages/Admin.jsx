@@ -20,7 +20,9 @@ const Admin = () => {
     status:'',
     assignTo:[]
   })
-
+  const [statusCount,setStatusCount]=useState({})
+  const [priorityCount,setPriorityCount]=useState({})
+  const [assignedToCount,setAssignedToCount]=useState({})
   const users=['User-1','User-2','User-3','User-4','User-5']
   const navigate = useNavigate();
 
@@ -31,27 +33,32 @@ const Admin = () => {
     setIsOpen(!isOpen);
   };
 
-  // useEffect(() => {
-  //   const fetchTickets = async () => {
-  //     const token = localStorage.getItem("userToken");
-  //     try {
-  //       const response = await axios.get(
-  //         `${import.meta.env.VITE_BACKEND_URL}/api/admin/get-tickets`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
+  useEffect(() => {
+    const fetchTickets = async () => {
+      const token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/admin/get-tickets`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setArray(response.data);       
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTickets();
+    console.log(refresh);
+    
+    
+   
+  }, [refresh]);
 
-  //       setArray((prev) => response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchTickets();
-  // }, [refresh]);
-
+        
+       
 
 
   useEffect(() => {
@@ -110,11 +117,10 @@ const Admin = () => {
 
 const handleUpdate=async (id)=>{
   const updateTicket= updates[id]
-  console.log(updateTicket);
-  
-  if(!updateTicket){
-    alert('Please select values to update')
-  }
+  // if(!updateTicket){
+  //   alert('Please select values to update')
+  //   return
+  // }
   const token=localStorage.getItem('userToken')
   try {
     const response=await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/admin/update-ticket`,{...updateTicket,ticketId:id},
@@ -123,8 +129,8 @@ const handleUpdate=async (id)=>{
           Authorization:`Bearer ${token}`
         }
       }
-    )
-    setRefresh(prev=>!prev)
+    );
+    setRefresh(prev => !prev)
   } catch (error) {
     console.error(error);
     
@@ -171,7 +177,7 @@ const handleFilterChange=(e)=>{
 }else{
   newFilters[name]=value
 }
-// console.log(newFilters);
+
 
 
 setFilters(newFilters)
@@ -191,19 +197,38 @@ const updateURLParams=(newFilters)=>{
    navigate(`?${params.toString()}`);
 }
 
+useEffect(()=>{
+  if(array.length > 0){
+    const statusData=array.reduce((acc,item)=>{
+      acc[item.status] = (acc[item.status] || 0) + 1
+      return acc
+    },{})
+    setStatusCount(statusData)
+    
 
+    const priorityData=array.reduce((acc,item)=>{
+      acc[item.priority]=(acc[item.priority] || 0) + 1
+      return acc
+    },{})
+    setPriorityCount(priorityData)
 
-// console.log(updates);
-// console.log(filters);
+    const assignedToData=array.reduce((acc,item)=>{
+      acc[item.assignTo]=(acc[item.assignTo] || 0) + 1
+      return acc
+    },{})
+    setAssignedToCount(assignedToData); 
+  }
+    
+},[array])
+
 
 
 
 
   return (
     <>
-      
       {/* Navbar */}
-      <nav className="relative bg-black h-16 text-white text-3xl w-full flex items-center px-6">
+      <nav className=" fixed top-0 left-0 bg-black h-16 text-white text-3xl w-full flex items-center px-6 opacity-100 z-10">
         <div className="flex-1"></div>
         <div className="flex-1">Bug-Nest</div>
 
@@ -214,20 +239,76 @@ const updateURLParams=(newFilters)=>{
         </div>
       </nav>
 
-      <main>
+      <main className="mt-20">
         {/* Admin Details */}
-        <div className="relative  mt-4 flex  flex-col w-full items-center justify-center mb-8">
-          <div>
-            <h1 className="text-2xl mb-2">
+        <div className="  mt-4  w-full  mb-8 flex justify-center">
+          <div className="h-[200px] w-[600px] bg-black opacity-75 rounded-xl text-white flex flex-col items-center justify-center">
+            <h1 className="text-2xl mb-2 pr-[155px]">
               User Name:{userInfo.name || "name"}
             </h1>
-            <h1 className="text-2xl mb-2">
+            <h1 className="text-2xl mb-2 ">
               User Email:{userInfo.email || "email"}
             </h1>
-            <h1 className="text-2xl">
+            <h1 className="text-2xl pr-[42px]">
               Number of Tickets Created:
               {array.length > 0 ? <span>{array.length}</span> : ""}
             </h1>
+          </div>
+        </div>
+
+        <div className="w-full flex px-20 justify-center gap-20  mb-5">
+          <div className="h-[200px] w-[300px] bg-black opacity-75 rounded-xl text-white flex items-center justify-center">
+            <div>
+              <h1 className="font-semibold text-xl mb-2 ">
+                Status of the Tickets:
+              </h1>
+              <h1 className="text-lg pl-8">Open : {statusCount.open || 0}</h1>
+              <h1 className="text-lg pl-8">
+                Processing : {statusCount.processing || 0}
+              </h1>
+              <h1 className="text-lg pl-8">
+                Resolved : {statusCount.resolved || 0}
+              </h1>
+              <h1 className="text-lg pl-8">
+                Closed : {statusCount.closed || 0}
+              </h1>
+            </div>
+          </div>
+
+          <div className="h-[200px] w-[300px] bg-black opacity-75 rounded-xl text-white flex items-center justify-center">
+            <div>
+              <h1 className="font-semibold text-xl  mb-2">
+                Priority of the Tickets:
+              </h1>
+              <h1 className="text-lg pl-8">Low : {priorityCount.Low || 0}</h1>
+              <h1 className="text-lg pl-8">
+                Medium : {priorityCount.Medium || 0}
+              </h1>
+              <h1 className="text-lg pl-8">High : {priorityCount.High || 0}</h1>
+            </div>
+          </div>
+
+          <div className="h-[200px] w-[300px] bg-black opacity-75 rounded-xl text-white flex items-center justify-center">
+            <div>
+              <h1 className="font-semibold text-xl  mb-2">
+                Assigned User List:
+              </h1>
+              <h1 className="text-lg pl-8">
+                User-1 : {assignedToCount["User-1"] || 0}
+              </h1>
+              <h1 className="text-lg pl-8">
+                User-2 : {assignedToCount["User-2"] || 0}
+              </h1>
+              <h1 className="text-lg pl-8">
+                User-3 : {assignedToCount["User-3"] || 0}
+              </h1>
+              <h1 className="text-lg pl-8">
+                User-4 : {assignedToCount["User-4"] || 0}
+              </h1>
+              <h1 className="text-lg pl-8">
+                User-5 : {assignedToCount["User-5"] || 0}
+              </h1>
+            </div>
           </div>
         </div>
 
@@ -397,7 +478,7 @@ const updateURLParams=(newFilters)=>{
         {/* Table for fetching and updating data */}
         {array.length > 0 ? (
           <div className="flex items-center justify-center">
-            <table className="border-black border-2 w-[90%] mt-8">
+            <table className="border-black border-2 w-[90%] mt-8 mb-10">
               <thead>
                 <tr>
                   <th className="border-black border-2 px-2 py-1 w-[50px]">
