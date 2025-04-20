@@ -4,6 +4,8 @@ import { FiX } from "react-icons/fi";
 import { FaFilter } from "react-icons/fa";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import Bird from "../assets/Box.jpg";
+import { PiDotsNine } from "react-icons/pi";
 
 const Admin = () => {
   const [userInfo, setUserInfo] = useState("");
@@ -14,6 +16,8 @@ const Admin = () => {
   const [updates,setUpdates]=useState({})
   const [refresh, setRefresh] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isToggleOpen,setIsToggleOpen]=useState(false)
+  
   const [searchParams,setSearchParams]=useSearchParams()
   const [filters,setFilters]=useState({
     priority:'',
@@ -51,10 +55,6 @@ const Admin = () => {
       }
     };
     fetchTickets();
-    console.log(refresh);
-    
-    
-   
   }, [refresh]);
 
         
@@ -221,27 +221,87 @@ useEffect(()=>{
     
 },[array])
 
+ const handleUserInfo = () => {
+   setIsToggleOpen(!isToggleOpen);
+ };
+
 
 
 
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className=" fixed top-0 left-0 bg-black h-16 text-white text-3xl w-full flex items-center px-6 opacity-100 z-10">
-        <div className="flex-1"></div>
-        <div className="flex-1">Bug-Nest</div>
+      <nav className="relative bg-white h-12 text-black text-xl w-full flex items-center px-4 ">
+        <div className="flex-1 flex items-center font-[600] ">
+          <img src={Bird} className="w-12 h-12" />
+          <div className="text-2xl absolute left-[55px] ">Bug-Nest</div>
+        </div>
 
-        {/* Logout Button */}
         <div className="flex items-center text-xl hover:cursor-pointer">
-          <CiUser className="w-6 h-6 mt-0.5 mr-1" />
-          <button onClick={handleLogout}> Logout</button>
+          <PiDotsNine
+            className="w-7 h-7 text-gray-600 font-bold"
+            onClick={handleUserInfo}
+          />
         </div>
       </nav>
 
-      <main className="mt-20">
+      <main className="">
         {/* Admin Details */}
-        <div className="  mt-4  w-full  mb-8 flex justify-center">
+        {
+          <div
+            className={`${
+              isToggleOpen
+                ? " fixed top-12 right-2 h-[215px] w-[300px] bg-gray-200  text-black transform transition-transform duration-1000"
+                : ""
+            }
+        `}
+          >
+            {isToggleOpen && (
+              <div className="p-6">
+                <h1 className="text-center text-2xl mb-3 font-bold">
+                  Admin's Profile
+                </h1>
+                <h1 className="text-lg mb-1 font-semibold">
+                  Name:
+                  <span className="text-lg mb-2 ml-2 font-sans">
+                    {userInfo.name || "name"}
+                  </span>
+                </h1>
+                <h1 className="text-lg  font-semibold mb-3">
+                  Email:
+                  <span className="text-lg font-sans ml-2 break-all">
+                    {userInfo.email || "email"}
+                  </span>
+                </h1>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-600 px-4 py-1 text-white"
+                >
+                  {" "}
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        }
+
+        <div className="  pt-8 flex  flex-col md:flex-row w-[full] items-center justify-start mb-8 md:ml-20">
+          <div className="flex md:flex-row  gap-10">
+            <h1 className="text-lg border-2 p-3 h-[80px] border-gray-400 w-[115px]">
+              All Tickets:
+              <div className="text-center">
+                {array.length > 0 ? <span>{array.length}</span> : ""}
+              </div>
+            </h1>
+            <h1 className="text-lg border-2 p-3 h-[80px] border-gray-400 w-[115px] text-center">
+              Open:
+              <div className="text-center">{statusCount.open || 0}</div>
+            </h1>
+          </div>
+        </div>
+
+        {/* <div className="  mt-4  w-full  mb-8 flex justify-center">
           <div className="h-[200px] w-[600px] bg-black opacity-75 rounded-xl text-white flex flex-col items-center justify-center">
             <h1 className="text-2xl mb-2 pr-[155px]">
               User Name:{userInfo.name || "name"}
@@ -254,10 +314,10 @@ useEffect(()=>{
               {array.length > 0 ? <span>{array.length}</span> : ""}
             </h1>
           </div>
-        </div>
+        </div> */}
 
-        <div className="w-full flex px-20 justify-center gap-20  mb-5">
-          <div className="h-[200px] w-[300px] bg-black opacity-75 rounded-xl text-white flex items-center justify-center">
+        <div className="w-full flex px-20 justify-center gap-10  mb-5 md:flex-row flex-col">
+          <div className="h-[200px] w-[300px] bg-black  rounded-xl text-white flex items-center justify-center">
             <div>
               <h1 className="font-semibold text-xl mb-2 ">
                 Status of the Tickets:
@@ -275,7 +335,7 @@ useEffect(()=>{
             </div>
           </div>
 
-          <div className="h-[200px] w-[300px] bg-black opacity-75 rounded-xl text-white flex items-center justify-center">
+          <div className="h-[200px] w-[300px] bg-black  rounded-xl text-white flex items-center justify-center">
             <div>
               <h1 className="font-semibold text-xl  mb-2">
                 Priority of the Tickets:
@@ -288,7 +348,7 @@ useEffect(()=>{
             </div>
           </div>
 
-          <div className="h-[200px] w-[300px] bg-black opacity-75 rounded-xl text-white flex items-center justify-center">
+          <div className="h-[200px] w-[300px] bg-black  rounded-xl text-white flex items-center justify-center">
             <div>
               <h1 className="font-semibold text-xl  mb-2">
                 Assigned User List:
@@ -313,10 +373,10 @@ useEffect(()=>{
         </div>
 
         {/* Filters option */}
-        <div className="flex gap-10">
+        <div className="flex gap-10 items-center">
           <div>
             <button
-              className="ml-20 text-2xl flex border-2 px-2 py-1  rounded-lg border-gray-500"
+              className="lg:ml-20 ml-4 text-2xl flex border-2 px-2 py-1 border-gray-500"
               onClick={handleToggle}
             >
               <span>
@@ -327,7 +387,7 @@ useEffect(()=>{
           </div>
 
           {isOpen ? (
-            <div className="flex gap-10">
+            <div className="flex gap-10 overflow-x-auto">
               <div>
                 <div>
                   <span className="text-xl">Priority:</span>
@@ -477,32 +537,32 @@ useEffect(()=>{
 
         {/* Table for fetching and updating data */}
         {array.length > 0 ? (
-          <div className="flex items-center justify-center">
-            <table className="border-black border-2 w-[90%] mt-8 mb-10">
+          <div className="flex lg:items-center lg:justify-center overflow-x-auto">
+            <table className="border-black border-2 mt-8 mb-10 min-w-[900px]  m-4 lg:mx-20">
               <thead>
-                <tr>
-                  <th className="border-black border-2 px-2 py-1 w-[50px]">
+                <tr className="text-xl ">
+                  <th className="border-black border-2 px-2 py-1 lg:w-[50px] font-semibold">
                     S.No
                   </th>
-                  <th className="border-black border-2 px-1 py-1 w-[250px]">
+                  <th className="border-black border-2 px-1 py-1 w-[150px] font-semibold ">
                     Title
                   </th>
-                  <th className="border-black border-2 px-2 py-1">
+                  <th className="border-black border-2 px-2 py-1 lg:w-[500px] w-[200px] font-semibold">
                     Description
                   </th>
-                  <th className="border-black border-2 px-2 py-1 w-[120px]">
+                  <th className="border-black border-2 px-2 py-1 w-[120px] font-semibold">
                     Bugs Found at
                   </th>
-                  <th className="border-black border-2 px-2 py-1 w-[120px]">
+                  <th className="border-black border-2 px-2 py-1 w-[140px] font-semibold">
                     Priority
                   </th>
-                  <th className="border-black border-2 px-2 py-1 w-[120px]">
+                  <th className="border-black border-2 px-2 py-1 w-[140px] font-semibold">
                     Status
                   </th>
-                  <th className="border-black border-2 px-2 py-1 w-[120px]">
+                  <th className="border-black border-2 px-2 py-1 w-[130px] font-semibold">
                     Assign To
                   </th>
-                  <th className="border-black border-2 px-1 py-1 w-[100px]">
+                  <th className="border-black border-2 px-1 py-1 w-[100px] font-semibold">
                     Ticket created at
                   </th>
                 </tr>
@@ -626,7 +686,7 @@ useEffect(()=>{
           ""
         )}
       </main>
-    </>
+    </div>
   );
 };
 

@@ -53,36 +53,38 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center w-full md:h-screen bg-black ">
+      {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
 
-      <div className="flex md:flex-row flex-col  container items-center justify-center">
+      <div className="flex md:flex-row flex-col  container items-center justify-center w-full md:h-screen">
         {/* Image div */}
-        <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[400px] bg-[rgb(229,249,238)]">
+        <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[35%] md:h-screen bg-[rgb(229,249,238)]">
           {/* <div className="flex items-center justify-center  "> */}
-            <img
-              src={Regi}
-              alt=""
-              className="w-[485px] h-[600px] md:w-[400px] md:h-[400px]  "
-            />
+          <img
+            src={Regi}
+            alt=""
+            className="w-[485px] h-[600px] md:w-[400px%] md:h-[500px]  "
+          />
           {/* </div> */}
         </div>
         {/* Register div */}
-        <div className="w-[485px] lg:w-[1000px] h-[600px] flex items-center justify-center bg-white">
+        <div className="w-[485px] md:w-[65%] h-[600px] flex items-center justify-center bg-white">
           {/* Image Section */}
           {/* <img
               src={WhiteBGImage}
               alt=""
-              className="w-[500px] md:w-[800px] h-[600px] relative "
+              className="w-full h-screen relative "
             /> */}
-          <div className="flex items-center justify-center flex-col absolute bg-white w-[400px] h-[500px] shadow-2xl">
+          <div className="flex items-center justify-center flex-col absolute bg-white w-[400px] h-[500px] md:w-[450px] shadow-2xl">
             {/* <h1 className="text-3xl font-semibold mb-8">
               Welcome to Bug-Nest{" "}
             </h1> */}
             <div className=" flex-col items-center justify-center">
-              <h1 className="text-3xl  text-center">Hello, Ticket Support </h1>
+              <h1 className="text-[32px]  text-center font-bold tracking-normal ">
+                Hello, Ticket Support{" "}
+              </h1>
 
-              <h1 className="text-md mt-2 mb-6 text-center w-[300px]">
-                Welcome to Bug-Nest,create your new account or existing user{" "}
+              <h1 className="text-md mt-2 mb-6 text-left w-[320px] font-bold text-gray-400 tracking-wide">
+                Welcome to Bug-Nest, create your new account or existing user{" "}
                 <span>
                   <button
                     className="hover:cursor-pointer text-blue-700"
@@ -92,17 +94,17 @@ const RegisterPage = () => {
                   </button>
                 </span>
               </h1>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="text-[14px] font-semibold tracking-wider">
                 {/* <label className="text-xl">Name:</label> */}
                 <div className="flex relative">
                   <input
                     type="text"
                     name="name"
                     onChange={handleChange}
-                    className="border-gray-500 border w-full  h-10 outline-none px-2 py-1 bg-transparent placeholder:text-gray-500"
+                    className="border-gray-300 border w-full h-10  outline-none px-3  bg-transparent placeholder:text-gray-400"
                     placeholder="Name"
                   />
-                  <FaRegUserCircle className="w-7 top-1 h-7  text-gray-300  absolute right-0.5" />
+                  <FaRegUserCircle className="w-6 top-2 h-6  text-gray-300  absolute right-1.5" />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {noNameError && noNameError ? noNameError : ""}
@@ -113,10 +115,10 @@ const RegisterPage = () => {
                     type="email"
                     name="email"
                     onChange={handleChange}
-                    className="border-gray-500 border w-full  h-10 outline-none px-2 py-1 bg-transparent text-black  placeholder:text-gray-500"
+                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400"
                     placeholder="Email"
                   />
-                  <AiOutlineMail className="w-7 top-1 right-0.5 h-7  text-gray-300 absolute " />
+                  <AiOutlineMail className="w-6 top-2 right-1.5 h-6  text-gray-300 absolute " />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {(emailNotMatchError && emailNotMatchError
@@ -129,10 +131,10 @@ const RegisterPage = () => {
                     type="password"
                     name="password"
                     onChange={handleChange}
-                    className="border-gray-500 border w-full  h-10 outline-none px-2 py-1 bg-transparent text-black  placeholder:text-gray-500"
+                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400"
                     placeholder="Password"
                   />
-                  <RiLockPasswordLine className="w-7 top-1 h-7  text-gray-300 absolute right-0" />
+                  <RiLockPasswordLine className="w-6 top-2 h-6  text-gray-300 absolute right-1" />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {noPasswordError && noPasswordError ? noPasswordError : ""}
@@ -142,7 +144,7 @@ const RegisterPage = () => {
                   className=" w-full px-2 border h-10 bg-black py-1 flex items-center justify-between text-white "
                   type="submit"
                 >
-                  <div className="border-none text-lg">Register</div>
+                  <div className="border-none text-[18px]">Register</div>
                   <FaArrowRight className="w-4 h-5" />
                 </button>
               </form>
@@ -153,7 +155,7 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };

@@ -9,6 +9,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
 import Logi from '../assets/Logi.png'
+import WhiteBGImage from "../assets/WhiteBGImage.jpg"
 
 
 const AboutPage = () => {
@@ -62,101 +63,103 @@ const AboutPage = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center w-full md:h-screen bg-black ">
-        <div className="flex md:flex-row flex-col  container items-center justify-center">
-          {/* Image div */}
-          <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[400px] bg-[rgb(44,69,80)]">
-            {/* <div className="flex items-center justify-center"> */}
-            <img
-              src={Logi}
-              alt=""
-              className="w-[485px] h-[600px] md:w-[400px] md:h-[400px] "
-            />
-          </div>
-          {/* </div> */}
+      {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
+      <div className="flex md:flex-row flex-col  container items-center justify-center w-full md:h-screen">
+        {/* Image div */}
+        <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[35%] md:h-screen bg-[rgb(44,69,80)]">
+          {/* <div className="flex items-center justify-center"> */}
+          <img
+            src={Logi}
+            alt=""
+            className="w-[485px] h-[600px] md:w-[400px] md:h-[500px] "
+          />
+        </div>
+        {/* </div> */}
 
-          {/* Login div */}
-          <div className="w-[485px] lg:w-[1000px] h-[600px] flex items-center justify-center bg-white">
-            {/* Image Section */}
-            {/* <img
-              src={PinkBackground}
+        {/* Login div */}
+        <div className="w-[485px] md:w-[65%] h-[600px] flex items-center justify-center bg-white">
+          {/* Image Section */}
+          {/* <img
+              src={WhiteBGImage}
               alt=""
-              className="w-[485px] h-[600px] md:w-[400px] md:h-[400px] "
+              className="h-screen w-full "
             /> */}
 
-            {/* Box section */}
+          {/* Box section */}
 
-            <div className=" flex items-center justify-center flex-col absolute bg-white w-[400px] h-[500px] shadow-2xl">
-              {/* <h1 className="text-3xl font-semibold mb-8">
+          <div className=" flex items-center justify-center flex-col absolute bg-white w-[450px] h-[450px] shadow-2xl">
+            {/* <h1 className="text-3xl font-semibold mb-8">
                 Welcome to Bug-Nest{" "}
               </h1> */}
 
-              <div className=" ">
-                <div className=" flex-col items-center justify-center">
-                  <h1 className="text-3xl  text-center">
-                    Hello, Ticket Support{" "}
-                  </h1>
-                  <h1 className="text-md mt-2 mb-6 text-center w-[300px]">
-                    Log in to your Bug-Nest account to manage your ticket or new
-                    user{" "}
-                    <span>
-                      <button
-                        className="hover:cursor-pointer text-blue-700"
-                        onClick={handleNavigate}
-                      >
-                        Register
-                      </button>
-                    </span>
-                  </h1>
-                  <form onSubmit={handleSubmit}>
-                    {/* <label className="text-xl">Email:</label> */}
-                    <div className="flex relative">
-                      <input
-                        type="email"
-                        name="email"
-                        className="border-gray-500 border w-full  h-10 outline-none px-2 py-1 bg-transparent placeholder:text-gray-500"
-                        placeholder="Email"
-                        onChange={handleChange}
-                      />
-                      <AiOutlineMail className="w-7 top-1 h-7  text-gray-300 absolute right-0.5" />
-                    </div>
-                    <p className="py-1 px-2 h-5 mb-3 text-red-500">
-                      {(emailError && emailError ? emailError : "") ||
-                        (noEmail && noEmail ? noEmail : "")}
-                    </p>
-                    {/* <label className="text-xl">Password:</label> */}
-                    <div className="flex relative">
-                      <input
-                        type="password"
-                        name="password"
-                        className="border-gray-500 border w-full  h-10 outline-none px-2 py-1 bg-transparent text-black  placeholder:text-gray-500"
-                        placeholder="Password"
-                        onChange={handleChange}
-                      />
-                      <RiLockPasswordLine className="w-7 top-1 h-7  text-gray-300 absolute right-0" />
-                    </div>
-                    <p className="py-1 px-2 h-5 mb-3 text-red-500">
-                      {(passwordError && passwordError ? passwordError : "") ||
-                        (noPassword && noPassword ? noPassword : "")}
-                    </p>
+            <div className=" ">
+              <div className=" flex-col items-center justify-center">
+                <h1 className="text-[32px]  text-center font-bold tracking-normal">
+                  Hello, Ticket Support{" "}
+                </h1>
+                <h1 className="text-md mt-2 mb-6 text-left w-[320px] font-semibold text-gray-400 tracking-wide ">
+                  Login to your Bug-Nest account to manage tickets or new user{" "}
+                  <span>
                     <button
-                      className=" w-full px-2 border h-10 bg-black py-1 flex items-center justify-between text-white "
-                      type="submit"
+                      className="hover:cursor-pointer text-blue-700"
+                      onClick={handleNavigate}
                     >
-                      <div className="border-none text-lg">Login</div>
-                      <FaArrowRight className="w-4 h-5" />
+                      Register
                     </button>
-                  </form>
-                  {/* <p className="text-end mt-2 mr-4 text-lg">
+                  </span>
+                </h1>
+                <form
+                  onSubmit={handleSubmit}
+                  className="text-[14px] tracking-wider"
+                >
+                  {/* <label className="text-xl">Email:</label> */}
+                  <div className="flex relative">
+                    <input
+                      type="email"
+                      name="email"
+                      className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent placeholder:text-gray-400 text-gray-400  "
+                      placeholder="Email"
+                      onChange={handleChange}
+                    />
+                    <AiOutlineMail className="w-6 top-1.5 h-6  text-gray-300 absolute right-1.5" />
+                  </div>
+                  <p className="py-1 px-2 h-5 mb-3 text-red-500">
+                    {(emailError && emailError ? emailError : "") ||
+                      (noEmail && noEmail ? noEmail : "")}
+                  </p>
+                  {/* <label className="text-xl">Password:</label> */}
+                  <div className="flex relative">
+                    <input
+                      type="password"
+                      name="password"
+                      className="border-gray-300 border w-full  h-10 outline-none px-2 py-1 bg-transparent  placeholder:text-gray-400 text-gray-400"
+                      placeholder="Password"
+                      onChange={handleChange}
+                    />
+                    <RiLockPasswordLine className="w-6 top-1.5 h-6  text-gray-300 absolute  right-1.5" />
+                  </div>
+                  <p className="py-1 px-2 h-5 mb-3 text-red-500">
+                    {(passwordError && passwordError ? passwordError : "") ||
+                      (noPassword && noPassword ? noPassword : "")}
+                  </p>
+                  <button
+                    className=" w-full px-2 border h-10 bg-black py-1 flex items-center justify-between text-white "
+                    type="submit"
+                  >
+                    <div className="border-none text-lg">Login</div>
+                    <FaArrowRight className="w-4 h-5" />
+                  </button>
+                </form>
+                {/* <p className="text-end mt-2 mr-4 text-lg">
                   
                     Don't have an account ?{" "}
                   </p> */}
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {/* </div> */}
     </>
   );
 };
