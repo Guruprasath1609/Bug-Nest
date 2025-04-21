@@ -317,7 +317,7 @@ useEffect(()=>{
         </div> */}
 
         <div className="w-full flex px-20 justify-center gap-10  mb-5 md:flex-row flex-col">
-          <div className="h-[200px] w-[300px] bg-black  rounded-xl text-white flex items-center justify-center">
+          <div className="h-[200px] w-[300px] bg-black  text-white flex items-center justify-center">
             <div>
               <h1 className="font-semibold text-xl mb-2 ">
                 Status of the Tickets:
@@ -335,7 +335,7 @@ useEffect(()=>{
             </div>
           </div>
 
-          <div className="h-[200px] w-[300px] bg-black  rounded-xl text-white flex items-center justify-center">
+          <div className="h-[200px] w-[300px] bg-black text-white flex items-center justify-center">
             <div>
               <h1 className="font-semibold text-xl  mb-2">
                 Priority of the Tickets:
@@ -348,39 +348,39 @@ useEffect(()=>{
             </div>
           </div>
 
-          <div className="h-[200px] w-[300px] bg-black  rounded-xl text-white flex items-center justify-center">
+          <div className="h-[200px] w-[300px] bg-black  text-white flex items-center justify-center">
             <div>
               <h1 className="font-semibold text-xl  mb-2">
                 Assigned User List:
               </h1>
               <h1 className="text-lg pl-8">
-                User-1 : {assignedToCount["User-1"] || 0}
+                User - 1 : {assignedToCount["User-1"] || 0}
               </h1>
               <h1 className="text-lg pl-8">
-                User-2 : {assignedToCount["User-2"] || 0}
+                User - 2 : {assignedToCount["User-2"] || 0}
               </h1>
               <h1 className="text-lg pl-8">
-                User-3 : {assignedToCount["User-3"] || 0}
+                User - 3 : {assignedToCount["User-3"] || 0}
               </h1>
               <h1 className="text-lg pl-8">
-                User-4 : {assignedToCount["User-4"] || 0}
+                User - 4 : {assignedToCount["User-4"] || 0}
               </h1>
               <h1 className="text-lg pl-8">
-                User-5 : {assignedToCount["User-5"] || 0}
+                User - 5 : {assignedToCount["User-5"] || 0}
               </h1>
             </div>
           </div>
         </div>
 
         {/* Filters option */}
-        <div className="flex gap-10 items-center">
+        <div className="flex gap-10 items-center mt-12">
           <div>
             <button
-              className="lg:ml-20 ml-4 text-2xl flex border-2 px-2 py-1 border-gray-500"
+              className="lg:ml-20 ml-4 text-xl flex border-2 px-2 py-1 border-gray-500"
               onClick={handleToggle}
             >
               <span>
-                <FaFilter className="w-5 h-5 mt-2 mr-1" />
+                <FaFilter className="w-5 h-5 mt-1 mr-1" />
               </span>
               Filters
             </button>
@@ -390,11 +390,11 @@ useEffect(()=>{
             <div className="flex gap-10 overflow-x-auto">
               <div>
                 <div>
-                  <span className="text-xl">Priority:</span>
+                  <span className="text-lg">Priority:</span>
                   <select
                     name="priority"
                     value={filters.priority || ""}
-                    className="text-xl border-2 border-black px-2 py-1 ml-1 rounded-md"
+                    className="text-lg border-2 border-black px-2 py-1 ml-1 rounded-md"
                     onChange={(e) => handleFilterChange(e)}
                   >
                     <option value="">Select</option>
@@ -407,11 +407,11 @@ useEffect(()=>{
 
               <div>
                 <div>
-                  <span className="text-xl">Status:</span>
+                  <span className="text-lg">Status:</span>
                   <select
                     name="status"
                     value={filters.status || ""}
-                    className="text-xl border-2 border-black px-2 py-1 ml-1 rounded-md"
+                    className="text-lg border-2 border-black px-2 py-1 ml-1 rounded-md"
                     onChange={(e) => handleFilterChange(e)}
                   >
                     <option value="">Select</option>
@@ -425,8 +425,8 @@ useEffect(()=>{
 
               <div>
                 <div className="flex">
-                  <span className="text-xl">Assigned To:</span>
-                  <div className="flex gap-5 text-xl ml-2">
+                  <span className="text-lg">Assigned To:</span>
+                  <div className="flex gap-5 text-lg ml-2">
                     {users.map((user) => (
                       <div className="flex" key={user}>
                         <div>
@@ -453,7 +453,7 @@ useEffect(()=>{
                       setSearchParams("");
                       setFilters({ priority: "", status: "", assignTo: [] });
                     }}
-                    className="text-xl text-red-600"
+                    className="text-lg text-red-600"
                   >
                     Clear All Filters
                   </button>
@@ -671,7 +671,7 @@ useEffect(()=>{
                     </td>
                     <td className="border-black border-2 px-2 py-1">
                       <button
-                        className="w-full border-black border-2 px-1 py-0.5 bg-blue-500 hover:bg-blue-600"
+                        className="w-full border-black border-2 px-1 py-0.5 bg-black text-white hover:bg-gray-700"
                         onClick={() => handleUpdate(arr._id)}
                       >
                         Update

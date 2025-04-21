@@ -268,8 +268,8 @@ const Home = () => {
 
         {/* Table for fetching data from database */}
         {array.length > 0 ? (
-          <div className="flex items-center justify-center w-full ">
-            <table className="border-black border-2  mt-8 overflow-x-scroll md:w-[90%] ">
+          <div className="flex lg:items-center lg:justify-center overflow-x-auto">
+            <table className="border-black border-2 mt-8 mb-10 min-w-[900px]  m-4 lg:mx-20">
               <thead>
                 <tr>
                   <th className="border-black border-2 px-2 py-1 md:w-[50px]">
