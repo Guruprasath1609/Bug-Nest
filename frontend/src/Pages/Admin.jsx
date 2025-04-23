@@ -235,7 +235,7 @@ useEffect(()=>{
       <nav className="relative bg-white h-12 text-black text-xl w-full flex items-center px-4 ">
         <div className="flex-1 flex items-center font-[600] ">
           <img src={Bird} className="w-12 h-12" />
-          <div className="text-2xl absolute left-[55px] ">Bug-Nest</div>
+          <div className="text-2xl absolute left-[60px] ">Bug-Nest</div>
         </div>
 
         <div className="flex items-center text-xl hover:cursor-pointer">

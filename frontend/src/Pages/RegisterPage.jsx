@@ -55,56 +55,56 @@ const RegisterPage = () => {
     <>
       {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
 
-      <div className="flex md:flex-row flex-col  container items-center justify-center w-full md:h-screen">
+      <div className="flex md:flex-row flex-col-reverse  container items-center justify-center w-full md:h-screen">
         {/* Image div */}
         <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[35%] md:h-screen bg-[rgb(229,249,238)]">
           {/* <div className="flex items-center justify-center  "> */}
           <img
             src={Regi}
             alt=""
-            className="w-[485px] h-[600px] md:w-[400px%] md:h-[500px]  "
+            className="w-[485px] h-[600px] lg:w-[400px] lg:h-[400px]   md:w-[300px] md:h-[300px] "
           />
           {/* </div> */}
         </div>
         {/* Register div */}
-        <div className="w-[485px] md:w-[65%] h-[600px] flex items-center justify-center bg-white">
+        <div className="w-[485px] md:w-[65%] h-[700px] flex items-center justify-center bg-white">
           {/* Image Section */}
           {/* <img
               src={WhiteBGImage}
               alt=""
               className="w-full h-screen relative "
             /> */}
-          <div className="flex items-center justify-center flex-col absolute bg-white w-[400px] h-[500px] md:w-[450px] shadow-2xl">
+          <div className="flex items-center justify-center flex-col absolute bg-white w-[450px] h-[500px] md:w-[450px] shadow-2xl rounded-xl">
             {/* <h1 className="text-3xl font-semibold mb-8">
               Welcome to Bug-Nest{" "}
             </h1> */}
             <div className=" flex-col items-center justify-center">
-              <h1 className="text-[32px]  text-center font-bold tracking-normal ">
+              <h1 className="text-[32px]  text-center font-black tracking-normal text-gray-800 ">
                 Hello, Ticket Support{" "}
               </h1>
 
-              <h1 className="text-md mt-2 mb-6 text-left w-[320px] font-bold text-gray-400 tracking-wide">
-                Welcome to Bug-Nest, create your new account or existing user{" "}
+              <h1 className=" mt-2 mb-6 text-left w-[320px]  text-gray-400 font-semibold">
+                  Welcome to Bug-Nest, create your new account or existing user{" "}
                 <span>
                   <button
-                    className="hover:cursor-pointer text-blue-700"
+                    className="hover:cursor-pointer text-blue-600 hover:text-blue-700 font-black text-md"
                     onClick={handleNavigate}
                   >
                     Login
                   </button>
                 </span>
               </h1>
-              <form onSubmit={handleSubmit} className="text-[14px] font-semibold tracking-wider">
+              <form onSubmit={handleSubmit} className="text-[14px]  ">
                 {/* <label className="text-xl">Name:</label> */}
                 <div className="flex relative">
                   <input
                     type="text"
                     name="name"
                     onChange={handleChange}
-                    className="border-gray-300 border w-full h-10  outline-none px-3  bg-transparent placeholder:text-gray-400"
+                    className="border-gray-300 border w-full h-10  outline-none px-3  bg-transparent placeholder:text-gray-400 rounded-md"
                     placeholder="Name"
                   />
-                  <FaRegUserCircle className="w-6 top-2 h-6  text-gray-300  absolute right-1.5" />
+                  <FaRegUserCircle className="w-5 top-2 h-5  text-gray-300  absolute right-1.5" />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {noNameError && noNameError ? noNameError : ""}
@@ -115,10 +115,10 @@ const RegisterPage = () => {
                     type="email"
                     name="email"
                     onChange={handleChange}
-                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400"
+                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400 rounded-md"
                     placeholder="Email"
                   />
-                  <AiOutlineMail className="w-6 top-2 right-1.5 h-6  text-gray-300 absolute " />
+                  <AiOutlineMail className="w-[20px] top-2 right-1.5 h-[20px]  text-gray-300 absolute " />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {(emailNotMatchError && emailNotMatchError
@@ -131,17 +131,17 @@ const RegisterPage = () => {
                     type="password"
                     name="password"
                     onChange={handleChange}
-                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400"
+                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400 rounded-md"
                     placeholder="Password"
                   />
-                  <RiLockPasswordLine className="w-6 top-2 h-6  text-gray-300 absolute right-1" />
+                  <RiLockPasswordLine className="w-6 top-2 h-6  text-gray-300 absolute right-[5px]" />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {noPasswordError && noPasswordError ? noPasswordError : ""}
                 </p>
 
                 <button
-                  className=" w-full px-2 border h-10 bg-black py-1 flex items-center justify-between text-white "
+                  className=" w-full px-2 border h-10 bg-gray-800 hover:bg-black py-1 flex items-center justify-between text-white rounded-md "
                   type="submit"
                 >
                   <div className="border-none text-[18px]">Register</div>

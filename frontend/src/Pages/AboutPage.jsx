@@ -64,20 +64,20 @@ const AboutPage = () => {
   return (
     <>
       {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
-      <div className="flex md:flex-row flex-col  container items-center justify-center w-full md:h-screen">
+      <div className="flex md:flex-row flex-col-reverse  container items-center justify-center w-full md:h-screen">
         {/* Image div */}
         <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[35%] md:h-screen bg-[rgb(44,69,80)]">
           {/* <div className="flex items-center justify-center"> */}
           <img
             src={Logi}
             alt=""
-            className="w-[485px] h-[600px] md:w-[400px] md:h-[500px] "
+            className="w-[485px] h-[600px] lg:w-[350px] lg:h-[400px]   md:w-[300px] md:h-[300px] "
           />
         </div>
         {/* </div> */}
 
         {/* Login div */}
-        <div className="w-[485px] md:w-[65%] h-[600px] flex items-center justify-center bg-white">
+        <div className="w-[485px] md:w-[65%] h-[710px] flex items-center justify-center bg-white">
           {/* Image Section */}
           {/* <img
               src={WhiteBGImage}
@@ -87,41 +87,38 @@ const AboutPage = () => {
 
           {/* Box section */}
 
-          <div className=" flex items-center justify-center flex-col absolute bg-white w-[450px] h-[450px] shadow-2xl">
+          <div className=" flex items-center justify-center flex-col absolute bg-white w-[450px] h-[450px] shadow-2xl rounded-xl">
             {/* <h1 className="text-3xl font-semibold mb-8">
                 Welcome to Bug-Nest{" "}
               </h1> */}
 
             <div className=" ">
               <div className=" flex-col items-center justify-center">
-                <h1 className="text-[32px]  text-center font-bold tracking-normal">
+                <h1 className="text-[32px]  text-center font-extrabold tracking-normal">
                   Hello, Ticket Support{" "}
                 </h1>
-                <h1 className="text-md mt-2 mb-6 text-left w-[320px] font-semibold text-gray-400 tracking-wide ">
+                <h1 className="text-md mt-2 mb-6 text-left w-[320px] font-semibold text-gray-400  ">
                   Login to your Bug-Nest account to manage tickets or new user{" "}
                   <span>
                     <button
-                      className="hover:cursor-pointer text-blue-700"
+                      className="hover:cursor-pointer text-blue-600 hover:text-blue-700"
                       onClick={handleNavigate}
                     >
                       Register
                     </button>
                   </span>
                 </h1>
-                <form
-                  onSubmit={handleSubmit}
-                  className="text-[14px] tracking-wider"
-                >
+                <form onSubmit={handleSubmit} className="text-[14px] ">
                   {/* <label className="text-xl">Email:</label> */}
                   <div className="flex relative">
                     <input
                       type="email"
                       name="email"
-                      className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent placeholder:text-gray-400 text-gray-400  "
+                      className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent placeholder:text-gray-400 text-gray-400  rounded-md"
                       placeholder="Email"
                       onChange={handleChange}
                     />
-                    <AiOutlineMail className="w-6 top-1.5 h-6  text-gray-300 absolute right-1.5" />
+                    <AiOutlineMail className="w-5 top-1.5 h-6  text-gray-300 absolute right-1.5" />
                   </div>
                   <p className="py-1 px-2 h-5 mb-3 text-red-500">
                     {(emailError && emailError ? emailError : "") ||
@@ -132,18 +129,18 @@ const AboutPage = () => {
                     <input
                       type="password"
                       name="password"
-                      className="border-gray-300 border w-full  h-10 outline-none px-2 py-1 bg-transparent  placeholder:text-gray-400 text-gray-400"
+                      className="border-gray-300 border w-full  h-10 outline-none px-2 py-1 bg-transparent  placeholder:text-gray-400 text-gray-400 rounded-md"
                       placeholder="Password"
                       onChange={handleChange}
                     />
-                    <RiLockPasswordLine className="w-6 top-1.5 h-6  text-gray-300 absolute  right-1.5" />
+                    <RiLockPasswordLine className="w-6 top-1.5 h-6  text-gray-300 absolute  right-1" />
                   </div>
                   <p className="py-1 px-2 h-5 mb-3 text-red-500">
                     {(passwordError && passwordError ? passwordError : "") ||
                       (noPassword && noPassword ? noPassword : "")}
                   </p>
                   <button
-                    className=" w-full px-2 border h-10 bg-black py-1 flex items-center justify-between text-white "
+                    className=" w-full px-2 border h-10 bg-black py-1 flex items-center justify-between text-white rounded-md"
                     type="submit"
                   >
                     <div className="border-none text-lg">Login</div>
