@@ -12,7 +12,7 @@ import Logi from '../assets/Logi.png'
 import WhiteBGImage from "../assets/WhiteBGImage.jpg"
 import BWLoginImage from '../assets/BWLoginImage.jpg'
 import GrayLogi from '../assets/GrayLogi.png'
-
+import BG from '../assets/BG.jpg'
 
 const AboutPage = () => {
   const navigate = useNavigate();
@@ -66,9 +66,9 @@ const AboutPage = () => {
   return (
     <>
       {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
-      <div className="flex md:flex-row flex-col-reverse  container items-center justify-center w-full md:h-screen">
+      <div className="flex md:flex-row flex-col-reverse container items-center justify-center w-full md:h-screen">
         {/* Image div */}
-        <div className="w-[485px] h-[600px] flex  items-center  justify-center md:w-[35%] md:h-screen bg-black">
+        <div className="w-[485px] h-[550px] flex  items-center  justify-center md:w-[35%] md:h-screen bg-black ">
           {/* <div className="flex items-center justify-center bg-[rgb(44,69,80)] "> */}
           <img
             src={GrayLogi}
@@ -79,10 +79,10 @@ const AboutPage = () => {
         {/* </div> */}
 
         {/* Login div */}
-        <div className="w-[485px] md:w-[65%] h-[710px] flex items-center justify-center bg-white">
+        <div className="w-[485px] md:w-[65%] h-[730px] md:h-screen flex items-center justify-center bg-white">
           {/* Image Section */}
           {/* <img
-              src={WhiteBGImage}
+              src={BG}
               alt=""
               className="h-screen w-full "
             /> */}

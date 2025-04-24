@@ -12,6 +12,8 @@ import Regi from '../assets/Regi.png'
 import GrayReg from '../assets/GrayReg.jpg'
 import GrayRegi from '../assets/GrayRegi.png'
 import BlackRegi from '../assets/BlackRegi.png'
+import NewReg from '../assets/NewReg.png'
+import NewGrayReg from '../assets/NewGrayReg.png'
 const RegisterPage = () => {
   const navigate = useNavigate();
 
@@ -60,17 +62,17 @@ const RegisterPage = () => {
 
       <div className="flex md:flex-row flex-col-reverse  container items-center justify-center w-full md:h-screen">
         {/* Image div */}
-        <div className="w-[485px] h-[600px] flex  items-center justify-center md:w-[35%] md:h-screen bg-black">
+        <div className="w-[485px] h-[600px] flex  items-center justify-center md:w-[35%] md:h-screen bg-black ">
           {/* <div className="flex items-center justify-center  bg-[rgb(229,249,238)]"> */}
           <img
-            src={BlackRegi}
+            src={NewGrayReg}
             alt=""
-            className="w-[455px] h-[400px] lg:w-[400px] lg:h-[350px]   md:w-[300px] md:h-[300px] "
+            className="w-[455px] h-[400px] lg:w-[350px] lg:h-[350px]   md:w-[250px] md:h-[300px] rounded-[50px] "
           />
           {/* </div> */}
         </div>
         {/* Register div */}
-        <div className="w-[485px] md:w-[65%] h-[700px] flex items-center justify-center bg-white">
+        <div className="w-[485px] md:w-[65%] h-[710px] md:h-screen flex items-center justify-center bg-white">
           {/* Image Section */}
           {/* <img
               src={WhiteBGImage}

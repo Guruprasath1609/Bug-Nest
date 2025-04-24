@@ -13,25 +13,23 @@ const Admin = () => {
   const [description, setDescription] = useState("");
   const [bugsFoundAt, setBugsFoundAt] = useState("Frontend");
   const [array, setArray] = useState([]);
-  const [updates,setUpdates]=useState({})
+  const [updates, setUpdates] = useState({});
   const [refresh, setRefresh] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isToggleOpen,setIsToggleOpen]=useState(false)
-  
-  const [searchParams,setSearchParams]=useSearchParams()
-  const [filters,setFilters]=useState({
-    priority:'',
-    status:'',
-    assignTo:[]
-  })
-  const [statusCount,setStatusCount]=useState({})
-  const [priorityCount,setPriorityCount]=useState({})
-  const [assignedToCount,setAssignedToCount]=useState({})
-  const users=['User-1','User-2','User-3','User-4','User-5']
+  const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const [isTicketDetailOpen, setIsTicketDetailOpen] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filters, setFilters] = useState({
+    priority: "",
+    status: "",
+    assignTo: [],
+  });
+  const [statusCount, setStatusCount] = useState({});
+  const [priorityCount, setPriorityCount] = useState({});
+  const [assignedToCount, setAssignedToCount] = useState({});
+  const users = ["User-1", "User-2", "User-3", "User-4", "User-5"];
   const navigate = useNavigate();
-
-
-
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -49,7 +47,7 @@ const Admin = () => {
             },
           }
         );
-        setArray(response.data);       
+        setArray(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -57,9 +55,9 @@ const Admin = () => {
     fetchTickets();
   }, [refresh]);
 
-        
-       
-
+  const handleTicketDetail = () => {
+    setIsTicketDetailOpen(!isTicketDetailOpen);
+  };
 
   useEffect(() => {
     if (
@@ -105,134 +103,119 @@ const Admin = () => {
   //   }
   // };
 
-
-
-
-
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("userToken");
     navigate("/");
   };
 
-const handleUpdate=async (id)=>{
-  const updateTicket= updates[id]
-  // if(!updateTicket){
-  //   alert('Please select values to update')
-  //   return
-  // }
-  const token=localStorage.getItem('userToken')
-  try {
-    const response=await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/admin/update-ticket`,{...updateTicket,ticketId:id},
-      {
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      }
-    );
-    setRefresh(prev => !prev)
-  } catch (error) {
-    console.error(error);
-    
-  };
-  
-}
-
-useEffect(()=>{
-  const params=Object.fromEntries([...searchParams])
-  setFilters(
-    {
-      status:params.status || '',
-      priority:params.priority || '',
-      assignTo:params.assignTo ? params.assignTo.split(',') : []
-    }
-  )
-
-  const fetchByFilters=async ()=>{
+  const handleUpdate = async (id) => {
+    const updateTicket = updates[id];
+    // if(!updateTicket){
+    //   alert('Please select values to update')
+    //   return
+    // }
+    const token = localStorage.getItem("userToken");
     try {
-      const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin?${searchParams.toString()}`)
-      setArray(response.data)
-      
+      const response = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/update-ticket`,
+        { ...updateTicket, ticketId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setRefresh((prev) => !prev);
     } catch (error) {
       console.error(error);
-      
     }
-  }
-  fetchByFilters()
-  
-  
-},[searchParams,refresh])
+  };
 
-const handleFilterChange=(e)=>{
-  const {name,value,type,checked}=e.target
-  let newFilters= {...filters}
-  
-  if(type == 'checkbox'){
-    if(checked){
-    newFilters[name]=[...(newFilters[name] || []),value]
-  }
-  else{
-    newFilters[name]=newFilters[name].filter((item)=>item !== value)
-  }
-}else{
-  newFilters[name]=value
-}
+  useEffect(() => {
+    const params = Object.fromEntries([...searchParams]);
+    setFilters({
+      status: params.status || "",
+      priority: params.priority || "",
+      assignTo: params.assignTo ? params.assignTo.split(",") : [],
+    });
 
+    const fetchByFilters = async () => {
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/admin?${searchParams.toString()}`
+        );
+        setArray(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchByFilters();
+  }, [searchParams, refresh]);
 
+  const handleFilterChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    let newFilters = { ...filters };
 
-setFilters(newFilters)
-updateURLParams(newFilters)
-}
-const updateURLParams=(newFilters)=>{
-  const params=new URLSearchParams()
-
-  Object.keys(newFilters).forEach((key)=>{
-    if(Array.isArray(newFilters[key]) && newFilters[key].length > 0){
-      params.append(key,newFilters[key].join(','))
-    }else{
-      params.append(key,newFilters[key])
+    if (type == "checkbox") {
+      if (checked) {
+        newFilters[name] = [...(newFilters[name] || []), value];
+      } else {
+        newFilters[name] = newFilters[name].filter((item) => item !== value);
+      }
+    } else {
+      newFilters[name] = value;
     }
-  })
-  setSearchParams(params)
-   navigate(`?${params.toString()}`);
-}
 
-useEffect(()=>{
-  if(array.length > 0){
-    const statusData=array.reduce((acc,item)=>{
-      acc[item.status] = (acc[item.status] || 0) + 1
-      return acc
-    },{})
-    setStatusCount(statusData)
-    
+    setFilters(newFilters);
+    updateURLParams(newFilters);
+  };
+  const updateURLParams = (newFilters) => {
+    const params = new URLSearchParams();
 
-    const priorityData=array.reduce((acc,item)=>{
-      acc[item.priority]=(acc[item.priority] || 0) + 1
-      return acc
-    },{})
-    setPriorityCount(priorityData)
+    Object.keys(newFilters).forEach((key) => {
+      if (Array.isArray(newFilters[key]) && newFilters[key].length > 0) {
+        params.append(key, newFilters[key].join(","));
+      } else {
+        params.append(key, newFilters[key]);
+      }
+    });
+    setSearchParams(params);
+    navigate(`?${params.toString()}`);
+  };
 
-    const assignedToData=array.reduce((acc,item)=>{
-      acc[item.assignTo]=(acc[item.assignTo] || 0) + 1
-      return acc
-    },{})
-    setAssignedToCount(assignedToData); 
-  }
-    
-},[array])
+  useEffect(() => {
+    if (array.length > 0) {
+      const statusData = array.reduce((acc, item) => {
+        acc[item.status] = (acc[item.status] || 0) + 1;
+        return acc;
+      }, {});
+      setStatusCount(statusData);
 
- const handleUserInfo = () => {
-   setIsToggleOpen(!isToggleOpen);
- };
+      const priorityData = array.reduce((acc, item) => {
+        acc[item.priority] = (acc[item.priority] || 0) + 1;
+        return acc;
+      }, {});
+      setPriorityCount(priorityData);
 
+      const assignedToData = array.reduce((acc, item) => {
+        acc[item.assignTo] = (acc[item.assignTo] || 0) + 1;
+        return acc;
+      }, {});
+      setAssignedToCount(assignedToData);
+    }
+  }, [array]);
 
-
-
+  const handleUserInfo = () => {
+    setIsToggleOpen(!isToggleOpen);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="fixed bg-white h-12 text-black text-xl w-full flex items-center px-[13px] md:px-[15px] lg:px-8">
+      <nav className="fixed bg-white h-12 text-black text-xl w-full flex items-center px-[13px] md:px-[15px] lg:px-8 z-30">
         <div className="flex-1 flex items-center font-[600] ">
           <img src={Bird} className="w-12 h-12" />
           <div className="text-2xl absolute md:left-[59px] left-[57px] lg:left-[75px] ">
@@ -252,43 +235,18 @@ useEffect(()=>{
         {/* Admin Details */}
         {
           <div
-            className={`${
-              isToggleOpen
-                ? // " fixed top-12 right-2 h-[215px] w-[300px] bg-gray-200  text-black transform transition-transform duration-1000"
-                  "absolute z-40  w-72 text-sm text-gray-800  bg-gray-900  rounded-lg shadow-xs  top-12 right-5 lg:right-10"
-                : ""
-            }
+            // " fixed top-12 right-2 h-[215px] w-[300px] bg-gray-200  text-black transform transition-transform duration-1000"
+            className={`      
+                  fixed z-40  w-72 text-base text-gray-800  bg-gray-900  rounded-lg shadow-xs  top-12 right-5 transform transition-transform duration-1000 lg:right-10 ${
+                    isToggleOpen ? "translate-y-0" : ""
+                  }
+            
         `}
           >
             {isToggleOpen && (
-              // <div className="p-6">
-              //   <h1 className="text-center text-2xl mb-3 font-bold">
-              //     Admin's Profile
-              //   </h1>
-              //   <h1 className="text-lg mb-1 font-semibold">
-              //     Name:
-              //     <span className="text-lg mb-2 ml-2 font-sans">
-              //       {userInfo.name || "name"}
-              //     </span>
-              //   </h1>
-              //   <h1 className="text-lg  font-semibold mb-3">
-              //     Email:
-              //     <span className="text-lg font-sans ml-2 break-all">
-              //       {userInfo.email || "email"}
-              //     </span>
-              //   </h1>
-              //   <button
-              //     onClick={handleLogout}
-              //     className="bg-red-600 px-4 py-1 text-white"
-              //   >
-              //     {" "}
-              //     Logout
-              //   </button>
-              // </div>
-
               <div
                 role="tooltip"
-                className="fixed z-50 w-72 text-sm    rounded-lg shadow-xs opacity-100 text-gray-800 dark:bg-white border-2 border-gray-300"
+                className="fixed z-40 w-72 text-sm    rounded-lg shadow-xs opacity-100 text-gray-800 dark:bg-white border-2 border-gray-300"
               >
                 <div className="p-3">
                   <div className="flex items-center justify-between mb-2">
@@ -373,102 +331,140 @@ useEffect(()=>{
             </h1>
           </div>
         </div> */}
+        <div className="text-lg ml-8 lg:ml-12">
+          Want to know more details?
+          <span
+            className="text-base ml-4 bg-gray-800 text-white px-2 py-1 rounded-md hover:cursor-pointer"
+            onClick={handleTicketDetail}
+          >
+            Click here
+          </span>
+        </div>
+        <div className="flex items-center justify-center">
+          <div
+            className={` transform transition-transform duration-700 ease-in-out  flex px-20 justify-center gap-10  mb-5 lg:flex-row  items-center flex-col z-20 lg:fixed absolute lg:top-[10%] top-12 border-gray-900 border-4 bg-gray-100 p-8  w-[485px]  lg:w-auto 
+            
+            ${
+              isTicketDetailOpen
+                ? "translate-x-0  "
+                : "-translate-x-full  overflow-hidden left-0"
+            }
 
-        {/* <div className="w-full flex px-20 justify-center gap-10  mb-5 md:flex-row flex-col">
-          <div className="h-[250px] w-[300px] bg-gray-300  text-gray-800 flex items-center justify-start">
-            <div className="">
-              <h1 className="font-semibold text-xl mb-2 ">
-                Status of the Tickets:
-              </h1>
-              <h1 className="text-lg pl-8 ">
-                <span className="bg-yellow-100 px-2 py-1 rounded-lg">Open</span>{" "}
-                : {statusCount.open || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-pink-100 px-2 py-1 rounded-lg">
-                  Processing
-                </span>{" "}
-                : {statusCount.processing || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-blue-100 px-2 py-1 rounded-lg ">
-                  Resolved
-                </span>{" "}
-                : {statusCount.resolved || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-green-100 px-2 py-1 rounded-lg">
-                  Closed
-                </span>{" "}
-                : {statusCount.closed || 0}
-              </h1>
+          `}
+          >
+            <FiX
+              className="absolute w-8 h-8 top-1 right-2 text-gray-900 cursor-pointer"
+              onClick={handleTicketDetail}
+            />
+            <div className="h-[250px] w-[300px] bg-gray-800  flex items-start justify-start text-white p-8 rounded-lg ">
+              <div>
+                <h1 className="font-semibold text-xl  mb-8 ">
+                  Priority of the Tickets:
+                </h1>
+                <h1 className="text-lg ">
+                  <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
+                    Low
+                  </span>{" "}
+                  : {priorityCount.Low || 0}
+                </h1>
+                <h1 className="text-lg  mt-3">
+                  <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
+                    Medium
+                  </span>{" "}
+                  : {priorityCount.Medium || 0}
+                </h1>
+                <h1 className="text-lg  mt-3">
+                  <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
+                    High
+                  </span>{" "}
+                  : {priorityCount.High || 0}
+                </h1>
+              </div>
+            </div>
+
+            <div className="h-[300px] w-[325px] bg-gray-800  text-gray-800 flex items-start justify-start p-12 rounded-lg">
+              <div className="">
+                <h1 className="font-semibold text-xl mb-8 text-white ">
+                  Status of the Tickets:
+                </h1>
+                <h1 className="text-lg  text-white">
+                  <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
+                    Open
+                  </span>{" "}
+                  : {statusCount.open || 0}
+                </h1>
+                <h1 className="text-lg mt-3  text-white">
+                  <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
+                    Processing
+                  </span>{" "}
+                  : {statusCount.processing || 0}
+                </h1>
+                <h1 className="text-lg  mt-3 text-white">
+                  <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
+                    Resolved
+                  </span>{" "}
+                  : {statusCount.resolved || 0}
+                </h1>
+                <h1 className="text-lg  mt-3 text-white">
+                  <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
+                    Closed
+                  </span>{" "}
+                  : {statusCount.closed || 0}
+                </h1>
+              </div>
+            </div>
+
+            <div className="h-[350px] w-[350px] bg-gray-800  text-white flex items-start justify-start p-16 rounded-lg">
+              <div className="">
+                <h1 className="font-semibold text-xl  mb-7">
+                  Assigned User List:
+                </h1>
+                <div className=" ">
+                  <div className="">
+                    <h1 className="text-lg  ">
+                      <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
+                        Roman
+                      </span>{" "}
+                      : {assignedToCount["User-1"] || 0}
+                    </h1>
+                    <h1 className="text-lg  mt-3">
+                      <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
+                        Randy
+                      </span>{" "}
+                      : {assignedToCount["User-2"] || 0}
+                    </h1>
+                    <h1 className="text-lg  mt-3">
+                      <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
+                        John
+                      </span>{" "}
+                      : {assignedToCount["User-3"] || 0}
+                    </h1>
+                  </div>
+                  <div className="">
+                    <h1 className="text-lg  mt-3">
+                      <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
+                        Peter
+                      </span>{" "}
+                      : {assignedToCount["User-4"] || 0}
+                    </h1>
+                    <h1 className="text-lg  mt-3">
+                      <span className="bg-red-200 px-2 py-1 rounded-lg text-black">
+                        Michael
+                      </span>{" "}
+                      : {assignedToCount["User-5"] || 0}
+                    </h1>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div className="h-[250px] w-[300px] bg-gray-200 text-gray-800 flex items-center justify-start">
-            <div>
-              <h1 className="font-semibold text-xl  mb-2">
-                Priority of the Tickets:
-              </h1>
-              <h1 className="text-lg pl-8">
-                <span className="bg-yellow-100 px-2 py-1 rounded-lg">Low</span>{" "}
-                : {priorityCount.Low || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-pink-100 px-2 py-1 rounded-lg">Medium</span>{" "}
-                : {priorityCount.Medium || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-blue-100 px-2 py-1 rounded-lg">High</span> :{" "}
-                {priorityCount.High || 0}
-              </h1>
-            </div>
-          </div>
-
-          <div className="h-[250px] w-[300px] bg-gray-300  text-gray-800 flex items-center justify-start">
-            <div>
-              <h1 className="font-semibold text-xl  mb-2">
-                Assigned User List:
-              </h1>
-              <h1 className="text-lg pl-8 ">
-                <span className="bg-yellow-100 px-2 py-1 rounded-lg">
-                  User - 1
-                </span>{" "}
-                : {assignedToCount["User-1"] || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-pink-100 px-2 py-1 rounded-lg">
-                  User - 2
-                </span>{" "}
-                : {assignedToCount["User-2"] || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-blue-100 px-2 py-1 rounded-lg">
-                  User - 3
-                </span>{" "}
-                : {assignedToCount["User-3"] || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-green-100 px-2 py-1 rounded-lg">
-                  User - 4
-                </span>{" "}
-                : {assignedToCount["User-4"] || 0}
-              </h1>
-              <h1 className="text-lg pl-8 mt-3">
-                <span className="bg-red-200 px-2 py-1 rounded-lg">
-                  User - 5
-                </span>{" "}
-                : {assignedToCount["User-5"] || 0}
-              </h1>
-            </div>
-          </div>
-        </div> */}
+        </div>
 
         {/* Filters option */}
         <div className="flex gap-10 items-center mt-12">
           <div>
             <button
-              className="lg:ml-[40px] ml-[23px] text-base flex border-2 px-2 py-1 border-gray-400 rounded-md bg-gray-800 text-white"
+              className="lg:ml-[40px] ml-[23px] text-base flex  px-2 py-1  rounded-md bg-gray-800 text-white outline-none border-2 brder-gray-100"
               onClick={handleToggle}
             >
               <span>
@@ -478,8 +474,12 @@ useEffect(()=>{
             </button>
           </div>
 
-          {isOpen ? (
-            <div className="fixed w-[300px] h-screen bg-gray-100 top-0 p-8">
+          {
+            <div
+              className={`fixed w-[300px] h-screen bg-gray-100 top-0 p-8 transform transition-transform duration-700 ease-in-out z-50 ${
+                isOpen ? " translate-x-0 " : "-translate-x-full"
+              }`}
+            >
               <FiX
                 className=" w-8 h-12 text-gray-700 hover:text-black hover:cursor-pointer top-0 absolute left-[260px]"
                 onClick={handleToggle}
@@ -538,7 +538,19 @@ useEffect(()=>{
                               checked={(filters.assignTo || []).includes(user)}
                               onChange={(e) => handleFilterChange(e)}
                             />
-                            <span>{user}</span>
+                            <span>
+                              {user == "User-1"
+                                ? "Roman"
+                                : user == "User-2"
+                                ? "Randy"
+                                : user == "User-3"
+                                ? "John"
+                                : user == "User-4"
+                                ? "Peter"
+                                : user == "User-5"
+                                ? "Michael"
+                                : ""}
+                            </span>
                           </div>
                         </div>
                       ))}
@@ -561,9 +573,7 @@ useEffect(()=>{
                 </div>
               </div>
             </div>
-          ) : (
-            ""
-          )}
+          }
         </div>
 
         {/* <div className="w-full flex justify-center">
@@ -781,11 +791,11 @@ useEffect(()=>{
                           }}
                         >
                           <option value="">Select</option>
-                          <option value="User-1">User-1</option>
-                          <option value="User-2">User-2</option>
-                          <option value="User-3">User-3</option>
-                          <option value="User-4">User-4</option>
-                          <option value="User-5">User-5</option>
+                          <option value="User-1">Roman</option>
+                          <option value="User-2">Randy</option>
+                          <option value="User-3">John</option>
+                          <option value="User-4">Peter</option>
+                          <option value="User-5">Michael</option>
                         </select>
                       </td>
                       <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 font-sans font-normal">
@@ -800,7 +810,7 @@ useEffect(()=>{
                       </td>
                       <td className="border-gray-100 border-b-2 px-2 py-2">
                         <button
-                          className="w-full border-black border-2 px-2 py-1 bg-gray-800 text-white hover:bg-black rounded-md text-base"
+                          className="w-full border-black border-2 px-1.5 py-1 bg-gray-800 text-white hover:bg-black rounded-md text-[15px]"
                           onClick={() => handleUpdate(arr._id)}
                         >
                           Update

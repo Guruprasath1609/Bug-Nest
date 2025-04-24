@@ -353,7 +353,7 @@ const Home = () => {
                 {array.map((arr, index) => (
                   <tr
                     key={arr._id}
-                    className="text-center hover:bg-gray-200 bg-white text-[16px]"
+                    className="text-center hover:bg-gray-200 bg-white text-[16px] text-gray-900"
                   >
                     <td className="border-gray-100 border-b-2 border-r-2 px-4 py-2">
                       {index + 1 + "."}
