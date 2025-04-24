@@ -10,6 +10,8 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
 import Logi from '../assets/Logi.png'
 import WhiteBGImage from "../assets/WhiteBGImage.jpg"
+import BWLoginImage from '../assets/BWLoginImage.jpg'
+import GrayLogi from '../assets/GrayLogi.png'
 
 
 const AboutPage = () => {
@@ -66,12 +68,12 @@ const AboutPage = () => {
       {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
       <div className="flex md:flex-row flex-col-reverse  container items-center justify-center w-full md:h-screen">
         {/* Image div */}
-        <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[35%] md:h-screen bg-[rgb(44,69,80)]">
-          {/* <div className="flex items-center justify-center"> */}
+        <div className="w-[485px] h-[600px] flex  items-center  justify-center md:w-[35%] md:h-screen bg-black">
+          {/* <div className="flex items-center justify-center bg-[rgb(44,69,80)] "> */}
           <img
-            src={Logi}
+            src={GrayLogi}
             alt=""
-            className="w-[485px] h-[600px] lg:w-[350px] lg:h-[400px]   md:w-[300px] md:h-[300px] "
+            className=" lg:w-[350px] lg:h-[400px] md:w-[300px] md:h-[300px] w-[485px] h-[600px]   "
           />
         </div>
         {/* </div> */}
@@ -101,7 +103,7 @@ const AboutPage = () => {
                   Login to your Bug-Nest account to manage tickets or new user{" "}
                   <span>
                     <button
-                      className="hover:cursor-pointer text-blue-600 hover:text-blue-700"
+                      className="hover:cursor-pointer text-gray-800 hover:text-blue-700 underline"
                       onClick={handleNavigate}
                     >
                       Register
@@ -114,11 +116,11 @@ const AboutPage = () => {
                     <input
                       type="email"
                       name="email"
-                      className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent placeholder:text-gray-400 text-gray-400  rounded-md"
+                      className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-md font-semibold placeholder:text-gray-400 text-gray-400  rounded-md"
                       placeholder="Email"
                       onChange={handleChange}
                     />
-                    <AiOutlineMail className="w-5 top-1.5 h-6  text-gray-300 absolute right-1.5" />
+                    <AiOutlineMail className="w-[18px] top-3 h-[18px]  text-gray-300 absolute right-1.5" />
                   </div>
                   <p className="py-1 px-2 h-5 mb-3 text-red-500">
                     {(emailError && emailError ? emailError : "") ||
@@ -129,22 +131,25 @@ const AboutPage = () => {
                     <input
                       type="password"
                       name="password"
-                      className="border-gray-300 border w-full  h-10 outline-none px-2 py-1 bg-transparent  placeholder:text-gray-400 text-gray-400 rounded-md"
+                      className="border-gray-300 border w-full  h-10 outline-none px-2 py-1 bg-transparent  
+                      text-md font-semibold placeholder:text-gray-400 text-gray-400 rounded-md"
                       placeholder="Password"
                       onChange={handleChange}
                     />
-                    <RiLockPasswordLine className="w-6 top-1.5 h-6  text-gray-300 absolute  right-1" />
+                    <RiLockPasswordLine className="w-[19px] top-2 h-[19px]  text-gray-300 absolute  right-1" />
                   </div>
                   <p className="py-1 px-2 h-5 mb-3 text-red-500">
                     {(passwordError && passwordError ? passwordError : "") ||
                       (noPassword && noPassword ? noPassword : "")}
                   </p>
                   <button
-                    className=" w-full px-2 border h-10 bg-black py-1 flex items-center justify-between text-white rounded-md"
+                    className=" w-full px-3 border bg-black py-3 flex items-center justify-between text-white rounded-md relative"
                     type="submit"
                   >
-                    <div className="border-none text-lg">Login</div>
-                    <FaArrowRight className="w-4 h-5" />
+                    <div className="border-none text-[15px] font-semibold">
+                      Login
+                    </div>
+                    <FaArrowRight className="w-[18px] h-[18px] absolute right-1.5" />
                   </button>
                 </form>
                 {/* <p className="text-end mt-2 mr-4 text-lg">

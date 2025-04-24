@@ -232,15 +232,17 @@ useEffect(()=>{
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="relative bg-white h-12 text-black text-xl w-full flex items-center px-4 ">
+      <nav className="fixed bg-white h-12 text-black text-xl w-full flex items-center px-[13px] md:px-[15px] lg:px-8">
         <div className="flex-1 flex items-center font-[600] ">
           <img src={Bird} className="w-12 h-12" />
-          <div className="text-2xl absolute left-[60px] ">Bug-Nest</div>
+          <div className="text-2xl absolute md:left-[59px] left-[57px] lg:left-[75px] ">
+            Bug-Nest
+          </div>
         </div>
 
         <div className="flex items-center text-xl hover:cursor-pointer">
           <PiDotsNine
-            className="w-7 h-7 text-gray-600 font-bold"
+            className="w-7 h-7 text-gray-600 font-bold mr-1.5"
             onClick={handleUserInfo}
           />
         </div>
@@ -252,51 +254,107 @@ useEffect(()=>{
           <div
             className={`${
               isToggleOpen
-                ? " fixed top-12 right-2 h-[215px] w-[300px] bg-gray-200  text-black transform transition-transform duration-1000"
+                ? // " fixed top-12 right-2 h-[215px] w-[300px] bg-gray-200  text-black transform transition-transform duration-1000"
+                  "absolute z-40  w-72 text-sm text-gray-800  bg-gray-900  rounded-lg shadow-xs  top-12 right-5 lg:right-10"
                 : ""
             }
         `}
           >
             {isToggleOpen && (
-              <div className="p-6">
-                <h1 className="text-center text-2xl mb-3 font-bold">
-                  Admin's Profile
-                </h1>
-                <h1 className="text-lg mb-1 font-semibold">
-                  Name:
-                  <span className="text-lg mb-2 ml-2 font-sans">
-                    {userInfo.name || "name"}
-                  </span>
-                </h1>
-                <h1 className="text-lg  font-semibold mb-3">
-                  Email:
-                  <span className="text-lg font-sans ml-2 break-all">
-                    {userInfo.email || "email"}
-                  </span>
-                </h1>
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-600 px-4 py-1 text-white"
-                >
-                  {" "}
-                  Logout
-                </button>
+              // <div className="p-6">
+              //   <h1 className="text-center text-2xl mb-3 font-bold">
+              //     Admin's Profile
+              //   </h1>
+              //   <h1 className="text-lg mb-1 font-semibold">
+              //     Name:
+              //     <span className="text-lg mb-2 ml-2 font-sans">
+              //       {userInfo.name || "name"}
+              //     </span>
+              //   </h1>
+              //   <h1 className="text-lg  font-semibold mb-3">
+              //     Email:
+              //     <span className="text-lg font-sans ml-2 break-all">
+              //       {userInfo.email || "email"}
+              //     </span>
+              //   </h1>
+              //   <button
+              //     onClick={handleLogout}
+              //     className="bg-red-600 px-4 py-1 text-white"
+              //   >
+              //     {" "}
+              //     Logout
+              //   </button>
+              // </div>
+
+              <div
+                role="tooltip"
+                className="fixed z-50 w-72 text-sm    rounded-lg shadow-xs opacity-100 text-gray-800 dark:bg-white border-2 border-gray-300"
+              >
+                <div className="p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    {/* <a href="#">
+                      <img
+                        className="w-10 h-10 rounded-full"
+                        src=""
+                        alt={userInfo.name}
+                      />
+                    </a> */}
+                    <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                      <svg
+                        class="absolute w-12 h-12 text-gray-400 -left-1"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+
+                    <div>
+                      <button
+                        type="button"
+                        className="text-white font-medium rounded-lg text-base px-2 py-1 bg-gray-800 hover:bg-black focus:outline-none "
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-base font-semibold leading-none text-gray-800 mt-4 mb-1">
+                    <a href="#">{userInfo.name || "name"}</a>
+                  </p>
+                  <p className="mb-3  font-normal">
+                    <a href="#" className="">
+                      {userInfo.email || "email"}
+                    </a>
+                  </p>
+                  <p className="mb-4 ">
+                    The one who acts as a task assigner and status updater.
+                  </p>
+                </div>
+                <div></div>
               </div>
             )}
           </div>
         }
 
-        <div className="  pt-8 flex  flex-col md:flex-row w-[full] items-center justify-start mb-8 md:ml-20">
-          <div className="flex md:flex-row  gap-10">
-            <h1 className="text-lg border-2 p-3 h-[80px] border-gray-400 w-[115px]">
+        <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-8 md:ml-[25px] lg:ml-[40px] ">
+          <div className="flex md:flex-row flex-col  gap-5">
+            <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
               All Tickets:
-              <div className="text-center">
-                {array.length > 0 ? <span>{array.length}</span> : ""}
+              <div className="text-left font-bold text-3xl">
+                {array.length > 0 ? <span>{array.length}</span> : "0"}
               </div>
             </h1>
-            <h1 className="text-lg border-2 p-3 h-[80px] border-gray-400 w-[115px] text-center">
-              Open:
-              <div className="text-center">{statusCount.open || 0}</div>
+            <h1 className="text-lg border-2 py-3 px-4  border-gray-400 w-[180px] text-left rounded-lg">
+              Open Tickets:
+              <div className="text-left font-bold text-3xl">
+                {statusCount.open || 0}
+              </div>
             </h1>
           </div>
         </div>
@@ -316,67 +374,101 @@ useEffect(()=>{
           </div>
         </div> */}
 
-        <div className="w-full flex px-20 justify-center gap-10  mb-5 md:flex-row flex-col">
-          <div className="h-[200px] w-[300px] bg-black  text-white flex items-center justify-center">
-            <div>
+        {/* <div className="w-full flex px-20 justify-center gap-10  mb-5 md:flex-row flex-col">
+          <div className="h-[250px] w-[300px] bg-gray-300  text-gray-800 flex items-center justify-start">
+            <div className="">
               <h1 className="font-semibold text-xl mb-2 ">
                 Status of the Tickets:
               </h1>
-              <h1 className="text-lg pl-8">Open : {statusCount.open || 0}</h1>
-              <h1 className="text-lg pl-8">
-                Processing : {statusCount.processing || 0}
+              <h1 className="text-lg pl-8 ">
+                <span className="bg-yellow-100 px-2 py-1 rounded-lg">Open</span>{" "}
+                : {statusCount.open || 0}
               </h1>
-              <h1 className="text-lg pl-8">
-                Resolved : {statusCount.resolved || 0}
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-pink-100 px-2 py-1 rounded-lg">
+                  Processing
+                </span>{" "}
+                : {statusCount.processing || 0}
               </h1>
-              <h1 className="text-lg pl-8">
-                Closed : {statusCount.closed || 0}
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-blue-100 px-2 py-1 rounded-lg ">
+                  Resolved
+                </span>{" "}
+                : {statusCount.resolved || 0}
+              </h1>
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-green-100 px-2 py-1 rounded-lg">
+                  Closed
+                </span>{" "}
+                : {statusCount.closed || 0}
               </h1>
             </div>
           </div>
 
-          <div className="h-[200px] w-[300px] bg-black text-white flex items-center justify-center">
+          <div className="h-[250px] w-[300px] bg-gray-200 text-gray-800 flex items-center justify-start">
             <div>
               <h1 className="font-semibold text-xl  mb-2">
                 Priority of the Tickets:
               </h1>
-              <h1 className="text-lg pl-8">Low : {priorityCount.Low || 0}</h1>
               <h1 className="text-lg pl-8">
-                Medium : {priorityCount.Medium || 0}
+                <span className="bg-yellow-100 px-2 py-1 rounded-lg">Low</span>{" "}
+                : {priorityCount.Low || 0}
               </h1>
-              <h1 className="text-lg pl-8">High : {priorityCount.High || 0}</h1>
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-pink-100 px-2 py-1 rounded-lg">Medium</span>{" "}
+                : {priorityCount.Medium || 0}
+              </h1>
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-blue-100 px-2 py-1 rounded-lg">High</span> :{" "}
+                {priorityCount.High || 0}
+              </h1>
             </div>
           </div>
 
-          <div className="h-[200px] w-[300px] bg-black  text-white flex items-center justify-center">
+          <div className="h-[250px] w-[300px] bg-gray-300  text-gray-800 flex items-center justify-start">
             <div>
               <h1 className="font-semibold text-xl  mb-2">
                 Assigned User List:
               </h1>
-              <h1 className="text-lg pl-8">
-                User - 1 : {assignedToCount["User-1"] || 0}
+              <h1 className="text-lg pl-8 ">
+                <span className="bg-yellow-100 px-2 py-1 rounded-lg">
+                  User - 1
+                </span>{" "}
+                : {assignedToCount["User-1"] || 0}
               </h1>
-              <h1 className="text-lg pl-8">
-                User - 2 : {assignedToCount["User-2"] || 0}
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-pink-100 px-2 py-1 rounded-lg">
+                  User - 2
+                </span>{" "}
+                : {assignedToCount["User-2"] || 0}
               </h1>
-              <h1 className="text-lg pl-8">
-                User - 3 : {assignedToCount["User-3"] || 0}
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-blue-100 px-2 py-1 rounded-lg">
+                  User - 3
+                </span>{" "}
+                : {assignedToCount["User-3"] || 0}
               </h1>
-              <h1 className="text-lg pl-8">
-                User - 4 : {assignedToCount["User-4"] || 0}
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-green-100 px-2 py-1 rounded-lg">
+                  User - 4
+                </span>{" "}
+                : {assignedToCount["User-4"] || 0}
               </h1>
-              <h1 className="text-lg pl-8">
-                User - 5 : {assignedToCount["User-5"] || 0}
+              <h1 className="text-lg pl-8 mt-3">
+                <span className="bg-red-200 px-2 py-1 rounded-lg">
+                  User - 5
+                </span>{" "}
+                : {assignedToCount["User-5"] || 0}
               </h1>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Filters option */}
         <div className="flex gap-10 items-center mt-12">
           <div>
             <button
-              className="lg:ml-20 ml-4 text-xl flex border-2 px-2 py-1 border-gray-500"
+              className="lg:ml-[40px] ml-[23px] text-base flex border-2 px-2 py-1 border-gray-400 rounded-md bg-gray-800 text-white"
               onClick={handleToggle}
             >
               <span>
@@ -387,76 +479,85 @@ useEffect(()=>{
           </div>
 
           {isOpen ? (
-            <div className="flex gap-10 overflow-x-auto">
-              <div>
-                <div>
-                  <span className="text-lg">Priority:</span>
-                  <select
-                    name="priority"
-                    value={filters.priority || ""}
-                    className="text-lg border-2 border-black px-2 py-1 ml-1 rounded-md"
-                    onChange={(e) => handleFilterChange(e)}
-                  >
-                    <option value="">Select</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-                </div>
-              </div>
+            <div className="fixed w-[300px] h-screen bg-gray-100 top-0 p-8">
+              <FiX
+                className=" w-8 h-12 text-gray-700 hover:text-black hover:cursor-pointer top-0 absolute left-[260px]"
+                onClick={handleToggle}
+              />
 
-              <div>
+              <div className="flex flex-col gap-10">
                 <div>
-                  <span className="text-lg">Status:</span>
-                  <select
-                    name="status"
-                    value={filters.status || ""}
-                    className="text-lg border-2 border-black px-2 py-1 ml-1 rounded-md"
-                    onChange={(e) => handleFilterChange(e)}
-                  >
-                    <option value="">Select</option>
-                    <option value="open">Open</option>
-                    <option value="processing">Processing</option>
-                    <option value="resolved">Resolved</option>
-                    <option value="closed">Closed</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex">
-                  <span className="text-lg">Assigned To:</span>
-                  <div className="flex gap-5 text-lg ml-2">
-                    {users.map((user) => (
-                      <div className="flex" key={user}>
-                        <div>
-                          <input
-                            className="w-4 h-4 mr-1"
-                            type="checkbox"
-                            value={user}
-                            name="assignTo"
-                            checked={(filters.assignTo || []).includes(user)}
-                            onChange={(e) => handleFilterChange(e)}
-                          />
-                          <span>{user}</span>
-                        </div>
-                      </div>
-                    ))}
+                  <div className="flex flex-col">
+                    <span className="text-xl font-semibold mt-8">
+                      Priority:
+                    </span>
+                    <select
+                      name="priority"
+                      value={filters.priority || ""}
+                      className="text-base border-2 border-black px-2 py-1 mt-2  rounded-md outline-none"
+                      onChange={(e) => handleFilterChange(e)}
+                    >
+                      <option value="">Select</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
                   </div>
                 </div>
-              </div>
 
-              <div>
                 <div>
-                  <button
-                    onClick={() => {
-                      setSearchParams("");
-                      setFilters({ priority: "", status: "", assignTo: [] });
-                    }}
-                    className="text-lg text-red-600"
-                  >
-                    Clear All Filters
-                  </button>
+                  <div className="flex flex-col">
+                    <span className="text-xl font-semibold">Status:</span>
+                    <select
+                      name="status"
+                      value={filters.status || ""}
+                      className="text-base border-2 border-black px-2 py-1  rounded-md outline-none mt-2"
+                      onChange={(e) => handleFilterChange(e)}
+                    >
+                      <option value="">Select</option>
+                      <option value="open">Open</option>
+                      <option value="processing">Processing</option>
+                      <option value="resolved">Resolved</option>
+                      <option value="closed">Closed</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex-col">
+                    <span className="text-xl font-semibold">Assigned To:</span>
+                    <div className="flex flex-col gap-3 text-base ml-1 mt-3">
+                      {users.map((user) => (
+                        <div className="flex" key={user}>
+                          <div className="flex items-center">
+                            <input
+                              className="w-4 h-4 mr-2"
+                              type="checkbox"
+                              value={user}
+                              name="assignTo"
+                              checked={(filters.assignTo || []).includes(user)}
+                              onChange={(e) => handleFilterChange(e)}
+                            />
+                            <span>{user}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <button
+                      onClick={() => {
+                        setSearchParams("");
+                        setFilters({ priority: "", status: "", assignTo: [] });
+                      }}
+                      className="text-lg text-red-600"
+                    >
+                      Clear All Filters
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -537,150 +638,179 @@ useEffect(()=>{
 
         {/* Table for fetching and updating data */}
         {array.length > 0 ? (
-          <div className="flex lg:items-center lg:justify-center overflow-x-auto">
-            <table className="border-black border-2 mt-8 mb-10 min-w-[900px]  m-4 lg:mx-20">
-              <thead>
-                <tr className="text-xl ">
-                  <th className="border-black border-2 px-2 py-1 lg:w-[50px] font-semibold">
-                    S.No
-                  </th>
-                  <th className="border-black border-2 px-1 py-1 w-[150px] font-semibold ">
-                    Title
-                  </th>
-                  <th className="border-black border-2 px-2 py-1 lg:w-[500px] w-[200px] font-semibold">
-                    Description
-                  </th>
-                  <th className="border-black border-2 px-2 py-1 w-[120px] font-semibold">
-                    Bugs Found at
-                  </th>
-                  <th className="border-black border-2 px-2 py-1 w-[140px] font-semibold">
-                    Priority
-                  </th>
-                  <th className="border-black border-2 px-2 py-1 w-[140px] font-semibold">
-                    Status
-                  </th>
-                  <th className="border-black border-2 px-2 py-1 w-[130px] font-semibold">
-                    Assign To
-                  </th>
-                  <th className="border-black border-2 px-1 py-1 w-[100px] font-semibold">
-                    Ticket created at
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {array.map((arr, index) => (
-                  <tr key={arr._id} className="text-center">
-                    <td className="border-black border-2 px-2 py-1">
-                      {index + 1 + "."}
-                    </td>
-                    <td className="border-black border-2 px-1 py-1">
-                      {arr.title}
-                    </td>
-                    <td className="border-black border-2 px-2 py-1 text-left">
-                      {arr.description}
-                    </td>
-                    <td className="border-black border-2 px-2 py-1">
-                      {arr.bugsFoundAt}
-                    </td>
-                    <td className="border-black border-2 px-2 py-1">
-                      <select
-                        className="border-black border-2 px-1 py-0.5 text-md w-full"
-                        value={
-                          updates[arr._id]?.priority !== undefined
-                            ? updates[arr._id].priority
-                            : arr.priority
-                        }
-                        onChange={(e) => {
-                          setUpdates((prev) => ({
-                            ...prev,
-                            [arr._id]: {
-                              ...prev[arr._id],
-                              priority: e.target.value,
-                            },
-                          }));
-                        }}
-                      >
-                        <option value="">Select</option>
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                      </select>
-                    </td>
-                    <td className="border-black border-2 px-2 py-1">
-                      <select
-                        className="w-full border-2 border-black"
-                        value={
-                          updates[arr._id]?.status !== undefined
-                            ? updates[arr._id].status
-                            : arr.status
-                        }
-                        onChange={(e) => {
-                          setUpdates((prev) => ({
-                            ...prev,
-                            [arr._id]: {
-                              ...prev[arr._id],
-                              status: e.target.value,
-                            },
-                          }));
-                        }}
-                      >
-                        <option value="" disabled>
-                          Select status
-                        </option>
-                        <option value="open">Open</option>
-                        <option value="processing">Processing</option>
-                        <option value="resolved">Resolved</option>
-                        <option value="closed">Closed</option>
-                      </select>
-                    </td>
-                    <td className="border-black border-2 px-2 py-1">
-                      <select
-                        className="border-black border-2 px-1 py-0.5 text-md w-full"
-                        value={
-                          updates[arr._id]?.assignTo !== undefined
-                            ? updates[arr._id].assignTo
-                            : arr.assignTo
-                        }
-                        onChange={(e) => {
-                          setUpdates((prev) => ({
-                            ...prev,
-                            [arr._id]: {
-                              ...prev[arr._id],
-                              assignTo: e.target.value,
-                            },
-                          }));
-                        }}
-                      >
-                        <option value="">Select</option>
-                        <option value="User-1">User-1</option>
-                        <option value="User-2">User-2</option>
-                        <option value="User-3">User-3</option>
-                        <option value="User-4">User-4</option>
-                        <option value="User-5">User-5</option>
-                      </select>
-                    </td>
-                    <td className="border-black border-2 px-1 py-1">
-                      {new Date(arr.createdAt).toLocaleString("en-GB", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                      })}
-                    </td>
-                    <td className="border-black border-2 px-2 py-1">
-                      <button
-                        className="w-full border-black border-2 px-1 py-0.5 bg-black text-white hover:bg-gray-700"
-                        onClick={() => handleUpdate(arr._id)}
-                      >
-                        Update
-                      </button>
-                    </td>
+          <div className="flex lg:items-center lg:justify-center overflow-x-auto w-full  font-medium text-base ">
+            <div className="min-w-[1200px] lg:w-[95%] mt-8 mb-2  mx-6 lg:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
+              <table className="w-full">
+                <thead className="text-lg font-bold">
+                  <tr className="bg-gray-200 text-gray-900 ">
+                    <th className="border-gray-500  px-4 py-1 lg:w-[50px] rounded-tl-lg">
+                      S.No
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1 w-[150px]  ">
+                      Title
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1   lg:w-[500px] w-[200px] ">
+                      Description
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1    w-[120px] ">
+                      Bugs Found at
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1  w-[140px] ">
+                      Priority
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1    w-[150px] ">
+                      Status
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1  w-[130px] ">
+                      Assign To
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1    w-[130px] ">
+                      Ticket created at
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-1 rounded-tr-lg "></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {array.map((arr, index) => (
+                    <tr
+                      key={arr._id}
+                      className="text-center hover:bg-gray-200 bg-white text-[16px]"
+                    >
+                      <td className="border-gray-100 border-b-2 border-r-2 px-4 py-2 ">
+                        {index + 1 + "."}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 text-left ">
+                        {arr.title}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 text-left border-r-2">
+                        {arr.description}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-4 border-r-2">
+                        {arr.bugsFoundAt}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2">
+                        <select
+                          className={`border-black border-2 px-1 py-0.5 text-md w-full rounded-md ${
+                            arr.priority === "Low"
+                              ? "bg-yellow-100 rounded-md "
+                              : ""
+                          } ${
+                            arr.priority === "Medium"
+                              ? "bg-pink-100 rounded-md"
+                              : ""
+                          }${
+                            arr.priority === "High"
+                              ? "bg-blue-100 rounded-md"
+                              : ""
+                          }`}
+                          value={
+                            updates[arr._id]?.priority !== undefined
+                              ? updates[arr._id].priority
+                              : arr.priority
+                          }
+                          onChange={(e) => {
+                            setUpdates((prev) => ({
+                              ...prev,
+                              [arr._id]: {
+                                ...prev[arr._id],
+                                priority: e.target.value,
+                              },
+                            }));
+                          }}
+                        >
+                          <option value="">Select</option>
+                          <option value="Low">Low</option>
+                          <option value="Medium">Medium</option>
+                          <option value="High">High</option>
+                        </select>
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2">
+                        <select
+                          className={`w-full border-2 border-black rounded-md ${
+                            arr.status === "open" ? "bg-yellow-100" : ""
+                          }
+                        ${arr.status === "processing" ? "bg-pink-100" : ""}${
+                            arr.status === "resolved" ? "bg-blue-100" : ""
+                          }${arr.status === "closed" ? "bg-green-100" : ""}`}
+                          value={
+                            updates[arr._id]?.status !== undefined
+                              ? updates[arr._id].status
+                              : arr.status
+                          }
+                          onChange={(e) => {
+                            setUpdates((prev) => ({
+                              ...prev,
+                              [arr._id]: {
+                                ...prev[arr._id],
+                                status: e.target.value,
+                              },
+                            }));
+                          }}
+                        >
+                          <option value="" disabled>
+                            Select status
+                          </option>
+                          <option value="open">Open</option>
+                          <option value="processing">Processing</option>
+                          <option value="resolved">Resolved</option>
+                          <option value="closed">Closed</option>
+                        </select>
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-4 border-r-2 ">
+                        <select
+                          className={`border-black border-2 px-1 py-0.5 text-md w-full rounded-md ${
+                            arr.assignTo === "User-1" ? "bg-yellow-100" : ""
+                          }${arr.assignTo === "User-2" ? "bg-pink-100" : ""}${
+                            arr.assignTo === "User-3" ? "bg-blue-100" : ""
+                          }${arr.assignTo === "User-4" ? "bg-green-100" : ""}${
+                            arr.assignTo === "User-5" ? "bg-red-200" : ""
+                          }`}
+                          value={
+                            updates[arr._id]?.assignTo !== undefined
+                              ? updates[arr._id].assignTo
+                              : arr.assignTo
+                          }
+                          onChange={(e) => {
+                            setUpdates((prev) => ({
+                              ...prev,
+                              [arr._id]: {
+                                ...prev[arr._id],
+                                assignTo: e.target.value,
+                              },
+                            }));
+                          }}
+                        >
+                          <option value="">Select</option>
+                          <option value="User-1">User-1</option>
+                          <option value="User-2">User-2</option>
+                          <option value="User-3">User-3</option>
+                          <option value="User-4">User-4</option>
+                          <option value="User-5">User-5</option>
+                        </select>
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 font-sans font-normal">
+                        {new Date(arr.createdAt).toLocaleString("en-GB", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-2 py-2">
+                        <button
+                          className="w-full border-black border-2 px-2 py-1 bg-gray-800 text-white hover:bg-black rounded-md text-base"
+                          onClick={() => handleUpdate(arr._id)}
+                        >
+                          Update
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         ) : (
           ""

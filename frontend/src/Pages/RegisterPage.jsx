@@ -9,6 +9,9 @@ import { AiOutlineMail } from "react-icons/ai";
 import WhiteBGImage from '../assets/WhiteBGImage.jpg'
 import Reg from '../assets/Reg.jpg'
 import Regi from '../assets/Regi.png'
+import GrayReg from '../assets/GrayReg.jpg'
+import GrayRegi from '../assets/GrayRegi.png'
+import BlackRegi from '../assets/BlackRegi.png'
 const RegisterPage = () => {
   const navigate = useNavigate();
 
@@ -57,12 +60,12 @@ const RegisterPage = () => {
 
       <div className="flex md:flex-row flex-col-reverse  container items-center justify-center w-full md:h-screen">
         {/* Image div */}
-        <div className="w-[485px] h-[600px] flex items-center  justify-center md:w-[35%] md:h-screen bg-[rgb(229,249,238)]">
-          {/* <div className="flex items-center justify-center  "> */}
+        <div className="w-[485px] h-[600px] flex  items-center justify-center md:w-[35%] md:h-screen bg-black">
+          {/* <div className="flex items-center justify-center  bg-[rgb(229,249,238)]"> */}
           <img
-            src={Regi}
+            src={BlackRegi}
             alt=""
-            className="w-[485px] h-[600px] lg:w-[400px] lg:h-[400px]   md:w-[300px] md:h-[300px] "
+            className="w-[455px] h-[400px] lg:w-[400px] lg:h-[350px]   md:w-[300px] md:h-[300px] "
           />
           {/* </div> */}
         </div>
@@ -84,10 +87,10 @@ const RegisterPage = () => {
               </h1>
 
               <h1 className=" mt-2 mb-6 text-left w-[320px]  text-gray-400 font-semibold">
-                  Welcome to Bug-Nest, create your new account or existing user{" "}
+                Welcome to Bug-Nest, create your new account or existing user{" "}
                 <span>
                   <button
-                    className="hover:cursor-pointer text-blue-600 hover:text-blue-700 font-black text-md"
+                    className="hover:cursor-pointer text-gray-800 hover:text-blue-700 font-black text-md underline"
                     onClick={handleNavigate}
                   >
                     Login
@@ -101,10 +104,10 @@ const RegisterPage = () => {
                     type="text"
                     name="name"
                     onChange={handleChange}
-                    className="border-gray-300 border w-full h-10  outline-none px-3  bg-transparent placeholder:text-gray-400 rounded-md"
+                    className="border-gray-300 border w-full h-10  outline-none px-3 text-gray-400  bg-transparent font-semibold text-md placeholder:text-gray-400 rounded-md"
                     placeholder="Name"
                   />
-                  <FaRegUserCircle className="w-5 top-2 h-5  text-gray-300  absolute right-1.5" />
+                  <FaRegUserCircle className="w-[18px] top-2.5 h-[18px]  text-gray-300  absolute right-1.5" />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {noNameError && noNameError ? noNameError : ""}
@@ -115,10 +118,10 @@ const RegisterPage = () => {
                     type="email"
                     name="email"
                     onChange={handleChange}
-                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400 rounded-md"
+                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent  font-semibold text-md text-gray-400  placeholder:text-gray-400 rounded-md"
                     placeholder="Email"
                   />
-                  <AiOutlineMail className="w-[20px] top-2 right-1.5 h-[20px]  text-gray-300 absolute " />
+                  <AiOutlineMail className="w-[18px] top-2 right-1.5 h-[18px]  text-gray-300 absolute " />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {(emailNotMatchError && emailNotMatchError
@@ -131,21 +134,23 @@ const RegisterPage = () => {
                     type="password"
                     name="password"
                     onChange={handleChange}
-                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-black  placeholder:text-gray-400 rounded-md"
+                    className="border-gray-300 border w-full  h-10 outline-none px-3 py-1 bg-transparent text-gray-400 font-semibold text-md  placeholder:text-gray-400 rounded-md"
                     placeholder="Password"
                   />
-                  <RiLockPasswordLine className="w-6 top-2 h-6  text-gray-300 absolute right-[5px]" />
+                  <RiLockPasswordLine className="w-[19px] top-2 h-[19px]  text-gray-300 absolute right-[5px]" />
                 </div>
                 <p className="py-1 px-2 h-5 text-red-500 mb-4">
                   {noPasswordError && noPasswordError ? noPasswordError : ""}
                 </p>
 
                 <button
-                  className=" w-full px-2 border h-10 bg-gray-800 hover:bg-black py-1 flex items-center justify-between text-white rounded-md "
+                  className=" w-full px-3 border  bg-gray-800 hover:bg-black py-3 flex items-center justify-between text-white rounded-md text-md font-semibold relative"
                   type="submit"
                 >
-                  <div className="border-none text-[18px]">Register</div>
-                  <FaArrowRight className="w-4 h-5" />
+                  <div className="border-none text-[15px] font-semibold">
+                    Register
+                  </div>
+                  <FaArrowRight className="w-[18px] h-[18px] absolute right-1.5" />
                 </button>
               </form>
               {/* <p className="text-end mt-2 mr-5 text-lg">

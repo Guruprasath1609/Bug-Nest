@@ -111,10 +111,10 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-100 ">
       {/* Navbar */}
-      <nav className="relative bg-white h-12 text-black text-xl w-full flex items-center px-[13px] lg:px-8 ">
+      <nav className="fixed bg-white h-12 text-black text-xl w-full flex items-center px-[13px] md:px-[15px] lg:px-8">
         <div className="flex-1 flex items-center font-[600] ">
           <img src={Bird} className="w-12 h-12  " />
-          <div className="text-2xl absolute lg:left-[75px] left-[57px]">
+          <div className="text-2xl absolute md:left-[59px] left-[57px] lg:left-[75px]">
             Bug-Nest
           </div>
         </div>
@@ -135,7 +135,7 @@ const Home = () => {
             className={`${
               isToggleOpen
                 ? //  " absolute top-12 right-2 h-[215px] w-[300px] bg-gray-200  text-black transform transition-transform duration-1000 opacity-100"
-                  "absolute z-40  w-72 text-sm text-gray-400  bg-gray-900  rounded-lg shadow-xs  top-12 right-5 lg:right-10"
+                  "absolute z-40  w-72 text-sm text-gray-900  bg-gray-900  rounded-lg shadow-xs  top-12 right-5 lg:right-10"
                 : ""
             }
         `}
@@ -167,7 +167,7 @@ const Home = () => {
               // </div>
               <div
                 role="tooltip"
-                className="absolute z-50 w-72 text-sm    rounded-lg shadow-xs opacity-100 dark:text-gray-300 dark:bg-gray-800"
+                className="fixed z-50 w-72 text-sm    rounded-lg shadow-xl opacity-100 text-black bg-white border-2 border-gray-300"
               >
                 <div className="p-3">
                   <div className="flex items-center justify-between mb-2">
@@ -196,22 +196,22 @@ const Home = () => {
                     <div>
                       <button
                         type="button"
-                        className="text-white font-medium rounded-lg text-md px-3 py-1.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
+                        className="text-white font-medium rounded-lg text-md px-3 py-1.5 bg-gray-800  focus:outline-none hover:bg-black"
                         onClick={handleLogout}
                       >
                         Logout
                       </button>
                     </div>
                   </div>
-                  <p className="text-base font-semibold leading-none dark:text-white">
+                  <p className="text-base font-semibold leading-none text-gray-900 mt-4 mb-1">
                     <a href="#">{userInfo.name || "name"}</a>
                   </p>
-                  <p className="mb-3 text-md font-normal">
+                  <p className="mb-3 text-md font-medium">
                     <a href="#" className="">
                       {userInfo.email || "email"}
                     </a>
                   </p>
-                  <p className="mb-4 text-md">
+                  <p className="mb-4 text-md font-medium">
                     A true contributor to the betterment of the project.
                   </p>
                 </div>
@@ -221,15 +221,15 @@ const Home = () => {
           </div>
         }
 
-        <div className="  pt-8 flex  flex-col md:flex-row  items-center justify-start mb-8 md:ml-12">
-          <div className="flex md:flex-row  gap-10">
-            <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px]">
+        <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-8 md:ml-[25px] lg:ml-[40px]">
+          <div className="flex md:flex-row flex-col  gap-5">
+            <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
               All Tickets:
               <div className="text-left font-bold text-3xl">
                 {array.length > 0 ? <span>{array.length}</span> : "0"}
               </div>
             </h1>
-            <h1 className="text-lg border-2 py-3 px-4  border-gray-400 w-[180px] text-left">
+            <h1 className="text-lg border-2 py-3 px-4  border-gray-400 w-[180px] text-left rounded-lg">
               Open Tickets:
               <div className="text-left font-bold text-3xl">
                 {openStatus.open || "0"}
@@ -238,10 +238,10 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="flex lg:justify-start justify-center lg:ml-[35px]">
+        <div className="flex md:justify-start justify-center md:ml-[25px] lg:ml-[40px]">
           <div>
             <button
-              className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg"
+              className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base"
               onClick={handleToggle}
             >
               Create a new Ticket
@@ -251,49 +251,50 @@ const Home = () => {
 
         {/* Ticket creation page */}
         {isOpen ? (
-          <div className="absolute top-0 w-full h-screen flex items-center justify-center z-10">
+          <div className="fixed top-0 w-full h-screen flex items-center justify-center z-10">
             <div className="fixed top-0 left-0 w-full h-screen bg-black opacity-50 z-0"></div>
 
-            <div className="bg-white w-[470px] z-10 flex flex-col lg:w-[800px] mt-5 rounded-lg p-4">
+            <div className="bg-white w-[470px] z-10 flex flex-col lg:w-[700px]  rounded-lg p-8 lg:px-12 lg:py-12 ">
               <div className="p-2 text-2xl">
                 <div className="flex items-center justify-between border-b-2 border-gray-400">
-                  <label>Create your Ticket</label>
+                  <label className="text-2xl font-bold">
+                    Create your Ticket
+                  </label>
                   <button className="" onClick={handleToggle}>
-                    <FiX className=" w-8 h-12 text-red-600" />
+                    <FiX className=" w-8 h-12 text-gray-700 hover:text-black" />
                   </button>
                 </div>
 
-              <div>
-                <div className="mt-4 text-xl">Title:</div>
-
-              </div>
-
-
+                <div>
+                  <div className="mt-4 text-lg">Title:</div>
+                </div>
                 <input
                   type="text"
-                  className="w-full border-gray-300 border-2 mt-2 h-12  p-2 rounded-lg outline-none"
+                  className="w-full border-gray-300 border-2 mt-2  p-2 rounded-lg outline-none text-base"
                   value={title}
+                  placeholder="Enter your title"
                   onChange={(e) => {
                     setTitle(e.target.value);
                   }}
                 />
               </div>
-              <div className="p-2 text-xl">
+              <div className="p-2 text-lg">
                 <label>Description:</label>
                 <textarea
                   type="text"
-                  className="w-full border-gray-300 border-2 mt-2 h-96  p-2 rounded-lg outline-none"
+                  className="w-full border-gray-300 border-2 mt-2 h-72  p-2 rounded-lg outline-none text-base"
                   value={description}
+                  placeholder="Enter description here"
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
                 />
               </div>
               <div className="flex items-center justify-between">
-                <div className="p-2 text-xl mt-2">
-                  <label>Bugs found at:</label>
+                <div className="p-2 text-lg mt-2">
+                  <label>Bugs found at :</label>
                   <select
-                    className=" border-black border-2 ml-2 px-2 text-lg rounded-md "
+                    className=" border-gray-300 border-2 ml-2 px-1 text-base rounded-md py-1 outline-none  "
                     value={bugsFoundAt}
                     onChange={(e) => {
                       setBugsFoundAt(e.target.value);
@@ -309,7 +310,7 @@ const Home = () => {
                 </div>
                 <div className=" ">
                   <button
-                    className="mr-2 bg-black text-white px-4 py-1  text-xl rounded-lg"
+                    className="mr-2 bg-black text-white px-4 py-1  text-lg rounded-lg"
                     onClick={handleClick}
                   >
                     Send
@@ -324,49 +325,69 @@ const Home = () => {
 
         {/* Table for fetching data from database */}
         {array.length > 0 ? (
-          <div className="flex lg:items-center lg:justify-center overflow-x-auto w-full font-sans font-medium text-lg">
-            <table className="border-black  mt-8 mb-2 min-w-[950px] lg:w-[95%] mx-6 lg:mx-0 ">
-              <thead>
-                <tr className="bg-gray-800 text-white">
-                  <th className="border-gray-500 border-b-2 px-4 py-3 md:w-[50px] border-r-2 border-t-2">
+          <div className="flex lg:items-center lg:justify-center overflow-x-auto w-full  font-medium text-base">
+            <table className="border-gray-100 border rounded-lg overflow-hidden  mt-8 mb-2 min-w-[950px] lg:w-[95%] mx-6 lg:mx-0  ">
+              <thead className="text-lg font-bold">
+                <tr className="bg-gray-200 text-gray-900 ">
+                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[50px] border-r-2 border-t-2">
                     S.No
                   </th>
-                  <th className="border-gray-500 border-b-2 px-4 py-3 md:w-[200px] border-r-2  border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[200px] border-r-2  border-t-2">
                     Title
                   </th>
-                  <th className="border-gray-500 border-b-2 px-4 py-3 border-r-2 border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-1 border-r-2 border-t-2">
                     Description
                   </th>
-                  <th className="border-gray-500 border-b-2 px-4 py-3 md:w-[150px] border-r-2 border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[150px] border-r-2 border-t-2">
                     Bugs Found at
                   </th>
-                  <th className="border-gray-500 border-b-2 px-4 py-3 md:w-[100px] border-r-2 border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[100px] border-r-2 border-t-2">
                     Status
                   </th>
-                  <th className="border-gray-500 border-b-2 px-4 py-3 md:w-[170px] border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[170px] border-t-2">
                     Ticket created at
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {array.map((arr, index) => (
-                  <tr key={arr._id} className="text-center hover:bg-gray-200">
-                    <td className="border-gray-400 border-b-2 border-r-2 px-4 py-4">
+                  <tr
+                    key={arr._id}
+                    className="text-center hover:bg-gray-200 bg-white text-[16px]"
+                  >
+                    <td className="border-gray-100 border-b-2 border-r-2 px-4 py-2">
                       {index + 1 + "."}
                     </td>
-                    <td className="border-gray-400 border-b-2 px-4 py-4 border-r-2 text-left">
+                    <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 text-left">
                       {arr.title}
                     </td>
-                    <td className="border-gray-400 border-b-2 px-4 py-4 text-left border-r-2">
+                    <td className="border-gray-100 border-b-2 px-4 py-2 text-left border-r-2">
                       {arr.description}
                     </td>
-                    <td className="border-gray-400 border-b-2 px-4 py-4 border-r-2">
+                    <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2">
                       {arr.bugsFoundAt}
                     </td>
-                    <td className="border-gray-400 border-b-2 px-4 py-4 border-r-2">
-                      {arr.status}
+                    <td
+                      className={`border-gray-100 border-b-2 px-3 py-2 border-r-2 `}
+                    >
+                      <div
+                        className={`rounded-md px-2 py-1 
+                        ${
+                          arr.status === "open" ? "bg-yellow-100" : ""
+                        }
+                        ${arr.status === "processing" ? "bg-pink-100" : ""}
+                        ${
+                          arr.status === "resolved" ? "bg-blue-100" : ""
+                        }
+                        ${arr.status === "closed" ? "bg-green-100" : ""}`}
+                      >
+                        {arr.status == "open" ? "Open" : ""}
+                        {arr.status == "processing" ? "Processing" : ""}
+                        {arr.status == "resolved" ? "Resolved" : ""}
+                        {arr.status == "closed" ? "Closed" : ""}
+                      </div>
                     </td>
-                    <td className="border-gray-400 border-b-2 px-2 py-4 ">
+                    <td className="border-gray-100 border-b-2 px-2 py-2 font-sans font-normal">
                       {new Date(arr.createdAt).toLocaleString("en-GB", {
                         day: "2-digit",
                         month: "2-digit",
