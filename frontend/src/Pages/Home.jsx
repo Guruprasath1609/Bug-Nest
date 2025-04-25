@@ -141,30 +141,6 @@ const Home = () => {
         `}
           >
             {isToggleOpen && (
-              // <div className="p-6">
-              //   <h1 className="text-center text-2xl mb-3 font-bold">
-              //     User's Profile
-              //   </h1>
-              //   <h1 className="text-lg mb-1 font-semibold">
-              //     Name:
-              //     <span className="text-lg mb-2 ml-2 font-sans">
-              //       {userInfo.name || "name"}
-              //     </span>
-              //   </h1>
-              //   <h1 className="text-lg  font-semibold mb-3">
-              //     Email:
-              //     <span className="text-lg font-sans ml-2 break-all">
-              //       {userInfo.email || "email"}
-              //     </span>
-              //   </h1>
-              //   <button
-              //     onClick={handleLogout}
-              //     className="bg-red-600 px-4 py-1 text-white"
-              //   >
-              //     {" "}
-              //     Logout
-              //   </button>
-              // </div>
               <div
                 role="tooltip"
                 className="fixed z-50 w-72 text-sm    rounded-lg shadow-xl opacity-100 text-black bg-white border-2 border-gray-300"
@@ -178,9 +154,9 @@ const Home = () => {
                         alt={userInfo.name}
                       />
                     </a> */}
-                    <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                    <div class="relative w-10 h-10 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
                       <svg
-                        class="absolute w-12 h-12 text-gray-400 -left-1"
+                        class="absolute w-12 h-12 text-gray-300 -left-1"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -247,6 +223,10 @@ const Home = () => {
               Create a new Ticket
             </button>
           </div>
+        </div>
+
+        <div className=" ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
+          Tickets:
         </div>
 
         {/* Ticket creation page */}
@@ -372,13 +352,9 @@ const Home = () => {
                     >
                       <div
                         className={`rounded-md px-2 py-1 
-                        ${
-                          arr.status === "open" ? "bg-yellow-100" : ""
-                        }
+                        ${arr.status === "open" ? "bg-yellow-100" : ""}
                         ${arr.status === "processing" ? "bg-pink-100" : ""}
-                        ${
-                          arr.status === "resolved" ? "bg-blue-100" : ""
-                        }
+                        ${arr.status === "resolved" ? "bg-blue-100" : ""}
                         ${arr.status === "closed" ? "bg-green-100" : ""}`}
                       >
                         {arr.status == "open" ? "Open" : ""}
@@ -403,7 +379,11 @@ const Home = () => {
             </table>
           </div>
         ) : (
-          ""
+          <div className="flex items-center justify-center">
+            <div className="bg-gray-200 mt-8 text-xl font-bold text-center h-24 w-[90%] flex items-center justify-center sm:w-[95%] ">
+              No tickets created
+            </div>
+          </div>
         )}
       </main>
     </div>

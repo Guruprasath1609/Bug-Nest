@@ -13,6 +13,7 @@ const Admin = () => {
   const [description, setDescription] = useState("");
   const [bugsFoundAt, setBugsFoundAt] = useState("Frontend");
   const [array, setArray] = useState([]);
+  const [newArray,setNewArray]=useState([])
   const [updates, setUpdates] = useState({});
   const [refresh, setRefresh] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +48,7 @@ const Admin = () => {
             },
           }
         );
-        setArray(response.data);
+        setNewArray(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -187,26 +188,26 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    if (array.length > 0) {
-      const statusData = array.reduce((acc, item) => {
+    if (newArray.length > 0) {
+      const statusData = newArray.reduce((acc, item) => {
         acc[item.status] = (acc[item.status] || 0) + 1;
         return acc;
       }, {});
       setStatusCount(statusData);
 
-      const priorityData = array.reduce((acc, item) => {
+      const priorityData = newArray.reduce((acc, item) => {
         acc[item.priority] = (acc[item.priority] || 0) + 1;
         return acc;
       }, {});
       setPriorityCount(priorityData);
 
-      const assignedToData = array.reduce((acc, item) => {
+      const assignedToData = newArray.reduce((acc, item) => {
         acc[item.assignTo] = (acc[item.assignTo] || 0) + 1;
         return acc;
       }, {});
       setAssignedToCount(assignedToData);
     }
-  }, [array]);
+  }, [newArray]);
 
   const handleUserInfo = () => {
     setIsToggleOpen(!isToggleOpen);
@@ -257,9 +258,9 @@ const Admin = () => {
                         alt={userInfo.name}
                       />
                     </a> */}
-                    <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                    <div class="relative w-10 h-10 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
                       <svg
-                        class="absolute w-12 h-12 text-gray-400 -left-1"
+                        class="absolute w-12 h-12 text-gray-300 -left-1"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -305,7 +306,7 @@ const Admin = () => {
             <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
               All Tickets:
               <div className="text-left font-bold text-3xl">
-                {array.length > 0 ? <span>{array.length}</span> : "0"}
+                {newArray.length > 0 ? <span>{newArray.length}</span> : "0"}
               </div>
             </h1>
             <h1 className="text-lg border-2 py-3 px-4  border-gray-400 w-[180px] text-left rounded-lg">
@@ -511,7 +512,7 @@ const Admin = () => {
                     <select
                       name="status"
                       value={filters.status || ""}
-                      className="text-base border-2 border-black px-2 py-1  rounded-md outline-none mt-2"
+                      className="text-base border-2 border-black px-2 py-1  rounded-md outline-none mt-2 "
                       onChange={(e) => handleFilterChange(e)}
                     >
                       <option value="">Select</option>
@@ -529,15 +530,18 @@ const Admin = () => {
                     <div className="flex flex-col gap-3 text-base ml-1 mt-3">
                       {users.map((user) => (
                         <div className="flex" key={user}>
-                          <div className="flex items-center">
+                          <div className="flex items-center space-x-3">
+                             <label className="inline-flex items-center cursor-pointer">
                             <input
-                              className="w-4 h-4 mr-2"
+                              className=" sr-only peer"
                               type="checkbox"
                               value={user}
                               name="assignTo"
                               checked={(filters.assignTo || []).includes(user)}
                               onChange={(e) => handleFilterChange(e)}
                             />
+                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-gray-800"></div>
+                            </label>
                             <span>
                               {user == "User-1"
                                 ? "Roman"
@@ -646,10 +650,14 @@ const Admin = () => {
             </div>
           </div> */}
 
+        <div className="ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
+          Tickets:
+        </div>
+
         {/* Table for fetching and updating data */}
         {array.length > 0 ? (
-          <div className="flex lg:items-center lg:justify-center overflow-x-auto w-full  font-medium text-base ">
-            <div className="min-w-[1200px] lg:w-[95%] mt-8 mb-2  mx-6 lg:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
+          <div className="flex xl:items-center xl:justify-center overflow-x-auto w-full  font-medium text-base ">
+            <div className="min-w-[1200px] xl:w-[95%] mt-8 mb-2  mx-6 lg:ml-8 xl:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
               <table className="w-full">
                 <thead className="text-lg font-bold">
                   <tr className="bg-gray-200 text-gray-900 ">
