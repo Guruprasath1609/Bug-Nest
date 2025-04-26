@@ -6,11 +6,13 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import AboutPage from "./Pages/AboutPage";
 import RegisterPage from "./Pages/RegisterPage";
 import "./index.css";
+import {Toaster} from 'sonner'
 
 function App() {
  
   return (
     <BrowserRouter>
+    <Toaster position='top-right' duration={1000}/>
     <Routes>
     <Route path="/" element={<AboutPage />} />
     <Route path="/register" element={<RegisterPage />} />

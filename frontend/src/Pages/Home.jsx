@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Bird from "../assets/Box.jpg";
 import { PiDotsNine } from "react-icons/pi";
+import AssignedTicketsPage from "./AssignedTicketsPage";
 
 const Home = () => {
   const [userInfo, setUserInfo] = useState("");
@@ -17,10 +18,17 @@ const Home = () => {
   const navigate = useNavigate();
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [openStatus, setOpenStatus] = useState("");
+  const [assignedTicketsArray,setAssignedTicketsArray]=useState([])
+  const [AssignedTicketsOpen,setAssignedTicketsOpen]=useState(false)
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleAssignedTickets=()=>{
+    setAssignedTicketsOpen(!AssignedTicketsOpen)
+  }
+
 
   // Fetch tickets on initial render and also when ever a new ticket is created
   useEffect(() => {
@@ -107,6 +115,33 @@ const Home = () => {
     }, {});
     setOpenStatus(statusData);
   }, [array]);
+
+ 
+  useEffect(() => {
+    const fetchAssignedTickets = async () => {
+      const token = localStorage.getItem("userToken");
+      // const name = JSON.parse(localStorage.getItem("userInfo")).name;
+      
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/users/ticket/fetchAssignedTickets`,
+          
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        
+        setAssignedTicketsArray((prev)=>response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchAssignedTickets()
+  }, [assignedTicketsArray]);
 
   return (
     <div className="min-h-screen bg-gray-100 ">
@@ -214,7 +249,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="flex md:justify-start justify-center md:ml-[25px] lg:ml-[40px]">
+        <div className="flex md:justify-between justify-center md:ml-[25px] lg:ml-[40px] gap-10 ">
           <div>
             <button
               className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base"
@@ -223,10 +258,32 @@ const Home = () => {
               Create a new Ticket
             </button>
           </div>
+
+          <div className="lg:mr-10 md:mr-8">
+            <button
+              className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base"
+              onClick={handleAssignedTickets}
+            >
+              View Assigned Ticket
+            </button>
+          </div>
         </div>
+        
+
+        {AssignedTicketsOpen ?
+         (<>
+          <div className=" ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
+          Tickets Assigned :
+        </div>
+          <AssignedTicketsPage array={assignedTicketsArray} />
+          </>
+        ) : 
+          ""
+        
+        }
 
         <div className=" ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
-          Tickets:
+          Tickets Created :
         </div>
 
         {/* Ticket creation page */}

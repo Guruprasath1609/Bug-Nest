@@ -6,6 +6,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Bird from "../assets/Box.jpg";
 import { PiDotsNine } from "react-icons/pi";
+import { toast } from "sonner";
 
 const Admin = () => {
   const [userInfo, setUserInfo] = useState("");
@@ -13,7 +14,7 @@ const Admin = () => {
   const [description, setDescription] = useState("");
   const [bugsFoundAt, setBugsFoundAt] = useState("Frontend");
   const [array, setArray] = useState([]);
-  const [newArray,setNewArray]=useState([])
+  const [newArray, setNewArray] = useState([]);
   const [updates, setUpdates] = useState({});
   const [refresh, setRefresh] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -112,10 +113,22 @@ const Admin = () => {
 
   const handleUpdate = async (id) => {
     const updateTicket = updates[id];
-    // if(!updateTicket){
-    //   alert('Please select values to update')
-    //   return
-    // }
+    if(!updateTicket){
+      return toast.error("Please Select values to update", {
+        style: {
+          background: "black",
+          color: "white",
+          border: "1px solid black",
+          borderRadius: "12px",
+          padding: "15px",
+          boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+          fontSize: "1rem",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "30px",
+        },
+      });
+    }
     const token = localStorage.getItem("userToken");
     try {
       const response = await axios.put(
@@ -127,6 +140,20 @@ const Admin = () => {
           },
         }
       );
+      toast.success("Ticket updated Successfully", {
+        style: {
+          background: "black",
+          color: "white",
+          border: "1px solid black",
+          borderRadius: "12px",
+          padding: "15px",
+          boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+          fontSize: "1rem",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop:'30px'
+        }
+      });
       setRefresh((prev) => !prev);
     } catch (error) {
       console.error(error);
@@ -238,7 +265,7 @@ const Admin = () => {
           <div
             // " fixed top-12 right-2 h-[215px] w-[300px] bg-gray-200  text-black transform transition-transform duration-1000"
             className={`      
-                  fixed z-40  w-72 text-base text-gray-800  bg-gray-900  rounded-lg shadow-xs  top-12 right-5 transform transition-transform duration-1000 lg:right-10 ${
+                  fixed z-40  w-72 text-base text-gray-800  bg-gray-900  rounded-lg shadow-xs  top-12 right-5 transform transition-transform  duration-1000 lg:right-10 ${
                     isToggleOpen ? "translate-y-0" : ""
                   }
             
@@ -247,7 +274,7 @@ const Admin = () => {
             {isToggleOpen && (
               <div
                 role="tooltip"
-                className="fixed z-40 w-72 text-sm    rounded-lg shadow-xs opacity-100 text-gray-800 dark:bg-white border-2 border-gray-300"
+                className="fixed z-40 w-72 text-sm   rounded-lg shadow-xs opacity-100 text-gray-800 dark:bg-white border-2 border-gray-300 bg-white"
               >
                 <div className="p-3">
                   <div className="flex items-center justify-between mb-2">
@@ -354,7 +381,7 @@ const Admin = () => {
           `}
           >
             <FiX
-              className="absolute w-8 h-8 top-1 right-2 text-gray-900 cursor-pointer"
+              className="absolute w-8 h-8 top-1 right-2 text-gray-700 cursor-pointer hover:text-black"
               onClick={handleTicketDetail}
             />
             <div className="h-[250px] w-[300px] bg-gray-800  flex items-start justify-start text-white p-8 rounded-lg ">
@@ -531,16 +558,18 @@ const Admin = () => {
                       {users.map((user) => (
                         <div className="flex" key={user}>
                           <div className="flex items-center space-x-3">
-                             <label className="inline-flex items-center cursor-pointer">
-                            <input
-                              className=" sr-only peer"
-                              type="checkbox"
-                              value={user}
-                              name="assignTo"
-                              checked={(filters.assignTo || []).includes(user)}
-                              onChange={(e) => handleFilterChange(e)}
-                            />
-                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-gray-800"></div>
+                            <label className="inline-flex items-center cursor-pointer">
+                              <input
+                                className=" sr-only peer"
+                                type="checkbox"
+                                value={user}
+                                name="assignTo"
+                                checked={(filters.assignTo || []).includes(
+                                  user
+                                )}
+                                onChange={(e) => handleFilterChange(e)}
+                              />
+                              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-gray-800"></div>
                             </label>
                             <span>
                               {user == "User-1"
@@ -831,7 +860,11 @@ const Admin = () => {
             </div>
           </div>
         ) : (
-          ""
+          <div className="flex items-center justify-center">
+            <div className="bg-gray-200 mt-8 text-xl font-bold text-center h-24 w-[90%] flex items-center justify-center sm:w-[95%] ">
+              No tickets found
+            </div>
+          </div>
         )}
       </main>
     </div>
