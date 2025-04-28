@@ -7,6 +7,7 @@ import axios from "axios";
 import Bird from "../assets/Box.jpg";
 import { PiDotsNine } from "react-icons/pi";
 import { toast } from "sonner";
+import { FaPencilAlt } from "react-icons/fa";
 
 const Admin = () => {
   const [userInfo, setUserInfo] = useState("");
@@ -19,7 +20,8 @@ const Admin = () => {
   const [refresh, setRefresh] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isToggleOpen, setIsToggleOpen] = useState(false);
-  const [isTicketDetailOpen, setIsTicketDetailOpen] = useState(false);
+  const [isTicketDetailOpen, setIsTicketDetailOpen] = useState(true);
+  const [isTicketSlideOpen,setIsTicketSlideOpen]=useState(true)
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({
@@ -59,6 +61,7 @@ const Admin = () => {
 
   const handleTicketDetail = () => {
     setIsTicketDetailOpen(!isTicketDetailOpen);
+    setIsTicketSlideOpen(!isTicketSlideOpen)
   };
 
   useEffect(() => {
@@ -253,7 +256,7 @@ const Admin = () => {
 
         <div className="flex items-center text-xl hover:cursor-pointer">
           <PiDotsNine
-            className="w-7 h-7 text-gray-600 font-bold mr-1.5"
+            className="w-7 h-7 text-gray-600 font-bold mr-1.5 hover:text-black"
             onClick={handleUserInfo}
           />
         </div>
@@ -329,7 +332,7 @@ const Admin = () => {
         }
 
         <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-8 md:ml-[25px] lg:ml-[40px] ">
-          <div className="flex md:flex-row flex-col  gap-5">
+          <div className="flex md:flex-row   gap-5">
             <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
               All Tickets:
               <div className="text-left font-bold text-3xl">
@@ -359,7 +362,7 @@ const Admin = () => {
             </h1>
           </div>
         </div> */}
-        <div className="text-lg ml-8 lg:ml-12">
+        {/* <div className="text-lg ml-8 lg:ml-12">
           Want to know more details?
           <span
             className="text-base ml-4 bg-gray-800 text-white px-2 py-1 rounded-md hover:cursor-pointer"
@@ -367,136 +370,138 @@ const Admin = () => {
           >
             Click here
           </span>
-        </div>
-        <div className="flex items-center justify-center">
-          <div
-            className={` transform transition-transform duration-700 ease-in-out  flex px-20 justify-center gap-10  mb-5 lg:flex-row  items-center flex-col z-20 lg:fixed absolute lg:top-[10%] top-12 border-gray-900 border-4 bg-gray-100 p-8  w-[485px]  lg:w-auto 
+        </div> */}
+        {isTicketSlideOpen && (
+          <div className="flex items-center justify-center ">
+            <div
+              className={` transform transition-transform duration-700 ease-in-out  flex px-20 lg:px-2 justify-center gap-10   lg:flex-row  lg:items-end items-center flex-col z-20  lg:top-[10%] top-12 border-gray-900  bg-gray-100 p-8  w-[484px]  lg:w-full lg:mx-[42px] mt-2 rounded-xl lg:mt-0 border-4 
             
             ${
               isTicketDetailOpen
                 ? "translate-x-0  "
-                : "-translate-x-full  overflow-hidden left-0"
+                : "-translate-x-full  overflow-hidden left-0 mr-96"
             }
 
           `}
-          >
-            <FiX
+            >
+              {/* <FiX
               className="absolute w-8 h-8 top-1 right-2 text-gray-700 cursor-pointer hover:text-black"
               onClick={handleTicketDetail}
-            />
-            <div className="h-[250px] w-[300px] bg-gray-800  flex items-start justify-start text-white p-8 rounded-lg ">
-              <div>
-                <h1 className="font-semibold text-xl  mb-8 ">
-                  Priority of the Tickets:
-                </h1>
-                <h1 className="text-lg ">
-                  <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
-                    Low
-                  </span>{" "}
-                  : {priorityCount.Low || 0}
-                </h1>
-                <h1 className="text-lg  mt-3">
-                  <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
-                    Medium
-                  </span>{" "}
-                  : {priorityCount.Medium || 0}
-                </h1>
-                <h1 className="text-lg  mt-3">
-                  <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
-                    High
-                  </span>{" "}
-                  : {priorityCount.High || 0}
-                </h1>
+            /> */}
+              <div className="h-[250px] w-[300px] lg:w-[250px] xl:w-[300px] bg-gray-800  flex items-start justify-start text-white p-8  rounded-lg shadow-xl lg:p-6 xl:p-8">
+                <div>
+                  <h1 className="font-semibold text-xl  mb-8 ">
+                    Priority of the Tickets:
+                  </h1>
+                  <h1 className="text-lg ">
+                    <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
+                      Low
+                    </span>{" "}
+                    : {priorityCount.Low || 0}
+                  </h1>
+                  <h1 className="text-lg  mt-3">
+                    <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
+                      Medium
+                    </span>{" "}
+                    : {priorityCount.Medium || 0}
+                  </h1>
+                  <h1 className="text-lg  mt-3">
+                    <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
+                      High
+                    </span>{" "}
+                    : {priorityCount.High || 0}
+                  </h1>
+                </div>
               </div>
-            </div>
 
-            <div className="h-[300px] w-[325px] bg-gray-800  text-gray-800 flex items-start justify-start p-12 rounded-lg">
-              <div className="">
-                <h1 className="font-semibold text-xl mb-8 text-white ">
-                  Status of the Tickets:
-                </h1>
-                <h1 className="text-lg  text-white">
-                  <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
-                    Open
-                  </span>{" "}
-                  : {statusCount.open || 0}
-                </h1>
-                <h1 className="text-lg mt-3  text-white">
-                  <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
-                    Processing
-                  </span>{" "}
-                  : {statusCount.processing || 0}
-                </h1>
-                <h1 className="text-lg  mt-3 text-white">
-                  <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
-                    Resolved
-                  </span>{" "}
-                  : {statusCount.resolved || 0}
-                </h1>
-                <h1 className="text-lg  mt-3 text-white">
-                  <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
-                    Closed
-                  </span>{" "}
-                  : {statusCount.closed || 0}
-                </h1>
+              <div className="h-[300px] w-[325px] lg:w-[275px] xl:w-[325px] bg-gray-800  text-gray-800 flex items-start justify-start p-12 rounded-lg shadow-xl ">
+                <div className="">
+                  <h1 className="font-semibold text-xl mb-8 text-white ">
+                    Status of the Tickets:
+                  </h1>
+                  <h1 className="text-lg  text-white">
+                    <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
+                      Open
+                    </span>{" "}
+                    : {statusCount.open || 0}
+                  </h1>
+                  <h1 className="text-lg mt-3  text-white">
+                    <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
+                      Processing
+                    </span>{" "}
+                    : {statusCount.processing || 0}
+                  </h1>
+                  <h1 className="text-lg  mt-3 text-white">
+                    <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
+                      Resolved
+                    </span>{" "}
+                    : {statusCount.resolved || 0}
+                  </h1>
+                  <h1 className="text-lg  mt-3 text-white">
+                    <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
+                      Closed
+                    </span>{" "}
+                    : {statusCount.closed || 0}
+                  </h1>
+                </div>
               </div>
-            </div>
 
-            <div className="h-[350px] w-[350px] bg-gray-800  text-white flex items-start justify-start p-16 rounded-lg">
-              <div className="">
-                <h1 className="font-semibold text-xl  mb-7">
-                  Assigned User List:
-                </h1>
-                <div className=" ">
-                  <div className="">
-                    <h1 className="text-lg  ">
-                      <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
-                        Roman
-                      </span>{" "}
-                      : {assignedToCount["User-1"] || 0}
-                    </h1>
-                    <h1 className="text-lg  mt-3">
-                      <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
-                        Randy
-                      </span>{" "}
-                      : {assignedToCount["User-2"] || 0}
-                    </h1>
-                    <h1 className="text-lg  mt-3">
-                      <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
-                        John
-                      </span>{" "}
-                      : {assignedToCount["User-3"] || 0}
-                    </h1>
-                  </div>
-                  <div className="">
-                    <h1 className="text-lg  mt-3">
-                      <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
-                        Peter
-                      </span>{" "}
-                      : {assignedToCount["User-4"] || 0}
-                    </h1>
-                    <h1 className="text-lg  mt-3">
-                      <span className="bg-red-200 px-2 py-1 rounded-lg text-black">
-                        Michael
-                      </span>{" "}
-                      : {assignedToCount["User-5"] || 0}
-                    </h1>
+              <div className="h-[350px] w-[350px] lg:w-[310px] xl:w-[350px] bg-gray-800  text-white flex items-start justify-start p-16 rounded-lg shadow-xl  ">
+                <div className="">
+                  <h1 className="font-semibold text-xl  mb-7">
+                    Assigned User List:
+                  </h1>
+                  <div className=" ">
+                    <div className="">
+                      <h1 className="text-lg  ">
+                        <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
+                          Roman
+                        </span>{" "}
+                        : {assignedToCount["User-1"] || 0}
+                      </h1>
+                      <h1 className="text-lg  mt-3">
+                        <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
+                          Randy
+                        </span>{" "}
+                        : {assignedToCount["User-2"] || 0}
+                      </h1>
+                      <h1 className="text-lg  mt-3">
+                        <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
+                          John
+                        </span>{" "}
+                        : {assignedToCount["User-3"] || 0}
+                      </h1>
+                    </div>
+                    <div className="">
+                      <h1 className="text-lg  mt-3">
+                        <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
+                          Peter
+                        </span>{" "}
+                        : {assignedToCount["User-4"] || 0}
+                      </h1>
+                      <h1 className="text-lg  mt-3">
+                        <span className="bg-red-200 px-2 py-1 rounded-lg text-black">
+                          Michael
+                        </span>{" "}
+                        : {assignedToCount["User-5"] || 0}
+                      </h1>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Filters option */}
-        <div className="flex gap-10 items-center mt-12">
+        <div className="flex gap-10 items-center mt-8">
           <div>
             <button
-              className="lg:ml-[40px] ml-[23px] text-base flex  px-2 py-1  rounded-md bg-gray-800 text-white outline-none border-2 brder-gray-100"
+              className="lg:ml-[40px] ml-[23px] text-lg flex  px-2 py-1  rounded-md bg-gray-800 text-white outline-none border-2 brder-gray-100"
               onClick={handleToggle}
             >
               <span>
-                <FaFilter className="w-5 h-5 mt-1 mr-1" />
+                <FaFilter className="w-[15px] h-[15px] mt-[6px] mr-1" />
               </span>
               Filters
             </button>
@@ -504,16 +509,20 @@ const Admin = () => {
 
           {
             <div
-              className={`fixed w-[300px] h-screen bg-gray-100 top-0 p-8 transform transition-transform duration-700 ease-in-out z-50 ${
+              className={`fixed w-[300px] h-screen bg-gray-100 top-0  transform transition-transform duration-700 ease-in-out z-50 ${
                 isOpen ? " translate-x-0 " : "-translate-x-full"
               }`}
             >
-              <FiX
-                className=" w-8 h-12 text-gray-700 hover:text-black hover:cursor-pointer top-0 absolute left-[260px]"
-                onClick={handleToggle}
-              />
+              <div className="border-b-[3px] border-gray-800 flex items-center justify-between px-2 ">
+                <h1 className="text-2xl font-bold  text-black ">Filters</h1>
 
-              <div className="flex flex-col gap-10">
+                <FiX
+                  className=" w-8 h-12 text-gray-950 hover:text-black hover:cursor-pointer "
+                  onClick={handleToggle}
+                />
+              </div>
+
+              <div className="flex flex-col gap-10 px-8">
                 <div>
                   <div className="flex flex-col">
                     <span className="text-xl font-semibold mt-8">
@@ -686,35 +695,37 @@ const Admin = () => {
         {/* Table for fetching and updating data */}
         {array.length > 0 ? (
           <div className="flex xl:items-center xl:justify-center overflow-x-auto w-full  font-medium text-base ">
-            <div className="min-w-[1200px] xl:w-[95%] mt-8 mb-2  mx-6 lg:ml-8 xl:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
+            <div className="min-w-[1300px] xl:w-[95%] mt-8 mb-2  mx-6 lg:ml-8 xl:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
               <table className="w-full">
-                <thead className="text-lg font-bold">
-                  <tr className="bg-gray-200 text-gray-900 ">
-                    <th className="border-gray-500  px-4 py-1 lg:w-[50px] rounded-tl-lg">
+                <thead className="text-[18px] font-bold">
+                  <tr className="bg-gray-200 text-gray-900  ">
+                    <th className="border-gray-500  px-4 py-5 w-[50px] rounded-tl-lg">
                       S.No
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1 w-[150px]  ">
+                    <th className="border-gray-200 border-b-2 px-4 py-5 w-[150px]  ">
                       Title
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1   lg:w-[500px] w-[200px] ">
+                    <th className="border-gray-200 border-b-2 px-4 py-5   lg:w-[500px] w-[250px] ">
                       Description
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1    w-[120px] ">
-                      Bugs Found at
+                    <th className="border-gray-200 border-b-2 px-4 py-5 w-[190px] ">
+                      Bugs found at
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1  w-[140px] ">
+                    <th className="border-gray-200 border-b-2 px-4 py-5  w-[140px] ">
                       Priority
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1    w-[150px] ">
+                    <th className="border-gray-200 border-b-2 px-4 py-5    w-[155px] ">
                       Status
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1  w-[130px] ">
+                    <th className="border-gray-200 border-b-2 px-4 py-5  w-[140px] ">
                       Assign To
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1    w-[130px] ">
-                      Ticket created at
+                    <th className="border-gray-200 border-b-2 px-4 py-5    w-[140px] ">
+                      Created at
                     </th>
-                    <th className="border-gray-200 border-b-2 px-4 py-1 rounded-tr-lg "></th>
+                    <th className="border-gray-200 border-b-2 px-2 py-5 rounded-tr-lg ">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -847,10 +858,10 @@ const Admin = () => {
                       </td>
                       <td className="border-gray-100 border-b-2 px-2 py-2">
                         <button
-                          className="w-full border-black border-2 px-1.5 py-1 bg-gray-800 text-white hover:bg-black rounded-md text-[15px]"
+                          className=" px-1.5 py-1  text-[18px]"
                           onClick={() => handleUpdate(arr._id)}
                         >
-                          Update
+                          <FaPencilAlt />
                         </button>
                       </td>
                     </tr>

@@ -5,33 +5,33 @@ const AssignedTicketsPage = ({array}) => {
     <div>
       {array.length > 0 ? (
         <div className="flex xl:items-center xl:justify-center overflow-x-auto w-full  font-medium text-base ">
-          <div className="min-w-[1050px] xl:w-[95%] mt-8 mb-2  mx-6 lg:ml-8 xl:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
+          <div className="min-w-[1150px] xl:w-[95%] mt-8 mb-2  mx-6 lg:ml-8 xl:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
             <table className="w-full">
-              <thead className="text-lg font-bold">
+              <thead className="text-[18px] font-bold">
                 <tr className="bg-gray-200 text-gray-900 ">
-                  <th className="border-gray-500  px-4 py-1  w-[60px] rounded-tl-lg">
+                  <th className="border-gray-500  px-4 py-4  w-[50px] rounded-tl-lg">
                     S.No
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1 w-[150px]  ">
+                  <th className="border-gray-200 border-b-2 px-4 py-4 w-[150px]  ">
                     Title
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1   lg:w-[600px] w-[300px] ">
+                  <th className="border-gray-200 border-b-2 px-4 py-4   ">
                     Description
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1    w-[120px] ">
+                  <th className="border-gray-200 border-b-2 px-4 py-4 w-[170px] ">
                     Bugs Found at
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1  w-[140px] ">
+                  <th className="border-gray-200 border-b-2 px-4 py-4  w-[130px] ">
                     Priority
                   </th>
                   {/* <th className="border-gray-200 border-b-2 px-4 py-1    w-[150px] ">
                     Status
                   </th> */}
-                  <th className="border-gray-200 border-b-2 px-4 py-1  w-[130px] ">
+                  <th className="border-gray-200 border-b-2 px-4 py-4  w-[130px] ">
                     Assign To
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1    w-[130px] ">
-                    Ticket created at
+                  <th className="border-gray-200 border-b-2 px-4 py-4    w-[160px] ">
+                    Created at
                   </th>
                   {/* <th className="border-gray-200 border-b-2 px-4 py-1 rounded-tr-lg "></th> */}
                 </tr>
@@ -54,9 +54,9 @@ const AssignedTicketsPage = ({array}) => {
                     <td className="border-gray-100 border-b-2 px-4 py-4 border-r-2">
                       {arr.bugsFoundAt}
                     </td>
-                    <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2">
+                    <td className="border-gray-100 border-b-2 px-5 py-2 border-r-2">
                       <div
-                        className={`border-black border-2 px-1 py-0.5 text-md w-full rounded-md ${
+                        className={` px-1 py-1 text-md w-full rounded-md ${
                           arr.priority === "Low"
                             ? "bg-yellow-100 rounded-md "
                             : ""
@@ -110,7 +110,7 @@ const AssignedTicketsPage = ({array}) => {
                     </td> */}
                     <td className="border-gray-100 border-b-2 px-4 py-4 border-r-2 ">
                       <div
-                        className={`border-black border-2 px-1 py-0.5 text-md w-full rounded-md ${
+                        className={`px-1 py-1 text-md w-full rounded-md ${
                           arr.assignTo === "User-1" ? "bg-yellow-100" : ""
                         }${arr.assignTo === "User-2" ? "bg-pink-100" : ""}${
                           arr.assignTo === "User-3" ? "bg-blue-100" : ""
@@ -132,7 +132,7 @@ const AssignedTicketsPage = ({array}) => {
                           : ""}
                       </div>
                     </td>
-                    <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 font-sans font-normal">
+                    <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 font-sans font-normal text-[16px]">
                       {new Date(arr.createdAt).toLocaleString("en-GB", {
                         day: "2-digit",
                         month: "2-digit",

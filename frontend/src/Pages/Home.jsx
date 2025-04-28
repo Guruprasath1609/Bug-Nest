@@ -156,7 +156,7 @@ const Home = () => {
 
         <div className="flex items-center text-xl hover:cursor-pointer">
           <PiDotsNine
-            className="w-7 h-7 text-gray-600 font-bold mr-1.5"
+            className="w-7 h-7 text-gray-600 font-bold mr-1.5 hover:text-black"
             onClick={handleUserInfo}
           />
         </div>
@@ -233,7 +233,7 @@ const Home = () => {
         }
 
         <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-8 md:ml-[25px] lg:ml-[40px]">
-          <div className="flex md:flex-row flex-col  gap-5">
+          <div className="flex flex-row   gap-5">
             <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
               All Tickets:
               <div className="text-left font-bold text-3xl">
@@ -252,7 +252,7 @@ const Home = () => {
         <div className="flex md:justify-between justify-center md:ml-[25px] lg:ml-[40px] gap-10 ">
           <div>
             <button
-              className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base"
+              className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base ml-1"
               onClick={handleToggle}
             >
               Create a new Ticket
@@ -264,7 +264,7 @@ const Home = () => {
               className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base"
               onClick={handleAssignedTickets}
             >
-              View Assigned Ticket
+              {AssignedTicketsOpen ? 'Close Assigned Ticket' : 'View Assigned Tickets'}
             </button>
           </div>
         </div>
@@ -363,26 +363,26 @@ const Home = () => {
         {/* Table for fetching data from database */}
         {array.length > 0 ? (
           <div className="flex lg:items-center lg:justify-center overflow-x-auto w-full  font-medium text-base">
-            <table className="border-gray-100 border rounded-lg overflow-hidden  mt-8 mb-2 min-w-[950px] lg:w-[95%] mx-6 lg:mx-0  ">
+            <table className="border-gray-100 border rounded-lg overflow-hidden  mt-8 mb-2 min-w-[1050px] lg:w-[95%] mx-6 lg:mx-0  ">
               <thead className="text-lg font-bold">
                 <tr className="bg-gray-200 text-gray-900 ">
-                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[50px] border-r-2 border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[50px] border-r-2 border-t-2">
                     S.No
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[200px] border-r-2  border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[200px] border-r-2  border-t-2">
                     Title
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1 border-r-2 border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-4 border-r-2 border-t-2">
                     Description
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[150px] border-r-2 border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-4 w-[170px] border-r-2 border-t-2">
                     Bugs Found at
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[100px] border-r-2 border-t-2">
+                  <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[100px] border-r-2 border-t-2">
                     Status
                   </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-1 md:w-[170px] border-t-2">
-                    Ticket created at
+                  <th className="border-gray-200 border-b-2 px-4 py-4 w-[170px] border-t-2">
+                    Created at
                   </th>
                 </tr>
               </thead>
