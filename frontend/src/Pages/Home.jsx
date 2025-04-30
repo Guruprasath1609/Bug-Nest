@@ -283,13 +283,13 @@ const Home = () => {
 
         <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-8 md:ml-[25px] lg:ml-[40px]">
           <div className="flex flex-row   gap-5">
-            <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
+            <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg bg-white">
               All Tickets:
               <div className="text-left font-bold text-3xl">
                 {array.length > 0 ? <span>{array.length}</span> : "0"}
               </div>
             </h1>
-            <h1 className="text-lg border-2 py-3 px-4  border-gray-400 w-[180px] text-left rounded-lg">
+            <h1 className="text-lg border-2 py-3 px-4  border-gray-400 w-[180px] text-left rounded-lg bg-white">
               Open Tickets:
               <div className="text-left font-bold text-3xl">
                 {openStatus.open || "0"}

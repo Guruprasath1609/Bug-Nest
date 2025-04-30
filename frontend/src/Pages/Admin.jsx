@@ -376,13 +376,13 @@ const usersArray = [
 
         <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-4 md:ml-[25px] lg:ml-[40px] ">
           <div className="flex md:flex-row   gap-5">
-            <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
+            <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg bg-white">
               All Tickets:
               <div className="text-left font-bold text-3xl">
                 {newArray.length > 0 ? <span>{newArray.length}</span> : "0"}
               </div>
             </h1>
-            <h1 className="text-lg border-2 py-3 px-4  border-gray-400 w-[180px] text-left rounded-lg">
+            <h1 className="text-lg border-2 py-3 px-4  bg-white border-gray-400 w-[180px] text-left rounded-lg">
               Open Tickets:
               <div className="text-left font-bold text-3xl">
                 {statusCount.open || 0}
@@ -433,7 +433,7 @@ const usersArray = [
               onClick={handleTicketDetail}
             /> */}
               <div className="flex gap-10 lg:flex-row flex-col justify-start items-center ">
-                <div className="  bg-gray-100  flex items-start justify-start text-black p-4  rounded-lg border-2 border-gray-400 ">
+                <div className="  bg-white  flex items-start justify-start text-black p-4  rounded-lg border-2 border-gray-400 ">
                   <div>
                     <h1 className="font-medium text-lg mb-6 w-full border-b-2 border-gray-400 pb-2">
                       Priority of the Tickets:
@@ -468,7 +468,7 @@ const usersArray = [
                   </div>
                 </div>
 
-                <div className="  bg-gray-100  text-black flex items-start justify-start p-4 rounded-lg  border-2 border-gray-400 ">
+                <div className="  bg-white  text-black flex items-start justify-start p-4 rounded-lg  border-2 border-gray-400 ">
                   <div className="">
                     <h1 className="font-medium text-lg mb-6 w-full border-b-2 border-gray-400 pb-2  ">
                       Status of the Tickets:
