@@ -340,7 +340,7 @@ const Home = () => {
           <div className="fixed top-0 w-full h-screen flex items-center justify-center z-10">
             <div className="fixed top-0 left-0 w-full h-screen bg-black opacity-50 z-0"></div>
 
-            <div className="bg-white w-[470px] z-10 flex flex-col lg:w-[700px]  rounded-lg p-8 lg:px-10 lg:py-10 lg:h-[95%]">
+            <div className="bg-white w-[470px] z-10 flex flex-col lg:w-[700px]  rounded-lg p-8 lg:px-10 lg:pt-8 lg:h-[95%] ">
               <div className="p-2 text-2xl">
                 <div className="flex items-center justify-between border-b-2 border-gray-400">
                   <label className="text-2xl font-bold">
@@ -385,7 +385,7 @@ const Home = () => {
               </div>
               <p className="h-5 text-red-600 ml-4">{descriptionError}</p>
               <div className="flex items-center justify-between">
-                <div className="p-2 text-lg mt-2">
+                <div className="p-2 text-lg ">
                   <label>Bugs found at :</label>
                   <select
                     className=" border-gray-300 border-2 ml-2 px-1 text-base rounded-md py-1 outline-none  "
