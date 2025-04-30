@@ -3,15 +3,16 @@ import { CiUser } from "react-icons/ci";
 import { FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Bird from "../assets/Box.jpg";
+import Bird from "../assets/BlackBox.jpg";
 import { PiDotsNine } from "react-icons/pi";
 import AssignedTicketsPage from "./AssignedTicketsPage";
+import { toast } from "sonner";
 
 const Home = () => {
   const [userInfo, setUserInfo] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [bugsFoundAt, setBugsFoundAt] = useState("Frontend");
+  const [bugsFoundAt, setBugsFoundAt] = useState("");
   const [array, setArray] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,15 @@ const Home = () => {
   const [openStatus, setOpenStatus] = useState("");
   const [assignedTicketsArray,setAssignedTicketsArray]=useState([])
   const [AssignedTicketsOpen,setAssignedTicketsOpen]=useState(false)
+  const [titleError,setTitleError]=useState('')
+  const [descriptionError,setDescriptionError]=useState('')
+  const [bugsError,setBugsError]=useState('')
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
+    setTitleError('')
+    setDescriptionError('')
+    setBugsError('')
   };
 
   const handleAssignedTickets=()=>{
@@ -68,6 +75,19 @@ const Home = () => {
   const id = userInfo._id;
   // Click function to create a new ticket in database
   const handleClick = async () => {
+    if(title == ''){
+      setTitleError('Title is required')
+      return 
+    }
+    if(description == ''){
+      setDescriptionError('Description is required')
+      return 
+    }
+    if(bugsFoundAt == ''){
+      setBugsError('Bugs found at is required')
+      return 
+    }
+
     const newTicket = {
       title: title,
       description: description,
@@ -91,6 +111,21 @@ const Home = () => {
       handleToggle();
       setRefresh((prev) => !prev);
 
+      toast.success("Ticket Created Successfully", {
+              style: {
+                background: "black",
+                color: "white",
+                border: "1px solid black",
+                borderRadius: "12px",
+                padding: "15px",
+                boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+                fontSize: "1rem",
+                fontWeight: "bold",
+                textAlign: "center",
+                marginTop: "30px",
+              },
+            });
+
       return response.data;
     } catch (error) {
       console.error(error);
@@ -101,6 +136,20 @@ const Home = () => {
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("userToken");
+    toast.success("Logout Successfully", {
+            style: {
+              background: "black",
+              color: "white",
+              border: "1px solid black",
+              borderRadius: "12px",
+              padding: "15px",
+              boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+              fontSize: "1rem",
+              fontWeight: "bold",
+              textAlign: "center",
+              marginTop: "30px",
+            },
+          });
     navigate("/");
   };
 
@@ -252,7 +301,7 @@ const Home = () => {
         <div className="flex md:justify-between justify-center md:ml-[25px] lg:ml-[40px] gap-10 ">
           <div>
             <button
-              className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base ml-1"
+              className="bg-gray-800 text-white  px-4 py-3 hover:bg-black rounded-lg text-base ml-1"
               onClick={handleToggle}
             >
               Create a new Ticket
@@ -261,26 +310,26 @@ const Home = () => {
 
           <div className="lg:mr-10 md:mr-8">
             <button
-              className="bg-gray-800 text-white  p-2 hover:bg-black rounded-lg text-base"
+              className="bg-gray-800 text-white  px-4 py-3  hover:bg-black rounded-lg text-base"
               onClick={handleAssignedTickets}
             >
-              {AssignedTicketsOpen ? 'Close Assigned Ticket' : 'View Assigned Tickets'}
+              {AssignedTicketsOpen
+                ? "Close Assigned Ticket"
+                : "View Assigned Tickets"}
             </button>
           </div>
         </div>
-        
 
-        {AssignedTicketsOpen ?
-         (<>
-          <div className=" ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
-          Tickets Assigned :
-        </div>
-          <AssignedTicketsPage array={assignedTicketsArray} />
+        {AssignedTicketsOpen ? (
+          <>
+            <div className=" ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
+              Tickets Assigned :
+            </div>
+            <AssignedTicketsPage array={assignedTicketsArray} />
           </>
-        ) : 
+        ) : (
           ""
-        
-        }
+        )}
 
         <div className=" ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
           Tickets Created :
@@ -291,7 +340,7 @@ const Home = () => {
           <div className="fixed top-0 w-full h-screen flex items-center justify-center z-10">
             <div className="fixed top-0 left-0 w-full h-screen bg-black opacity-50 z-0"></div>
 
-            <div className="bg-white w-[470px] z-10 flex flex-col lg:w-[700px]  rounded-lg p-8 lg:px-12 lg:py-12 ">
+            <div className="bg-white w-[470px] z-10 flex flex-col lg:w-[700px]  rounded-lg p-8 lg:px-10 lg:py-10 lg:h-[95%]">
               <div className="p-2 text-2xl">
                 <div className="flex items-center justify-between border-b-2 border-gray-400">
                   <label className="text-2xl font-bold">
@@ -312,9 +361,13 @@ const Home = () => {
                   placeholder="Enter your title"
                   onChange={(e) => {
                     setTitle(e.target.value);
+                    if (e.target.value) {
+                      setTitleError("");
+                    }
                   }}
                 />
               </div>
+              <p className="h-5 text-red-600 ml-4">{titleError}</p>
               <div className="p-2 text-lg">
                 <label>Description:</label>
                 <textarea
@@ -324,9 +377,13 @@ const Home = () => {
                   placeholder="Enter description here"
                   onChange={(e) => {
                     setDescription(e.target.value);
+                    if (e.target.value) {
+                      setDescriptionError("");
+                    }
                   }}
                 />
               </div>
+              <p className="h-5 text-red-600 ml-4">{descriptionError}</p>
               <div className="flex items-center justify-between">
                 <div className="p-2 text-lg mt-2">
                   <label>Bugs found at :</label>
@@ -335,8 +392,12 @@ const Home = () => {
                     value={bugsFoundAt}
                     onChange={(e) => {
                       setBugsFoundAt(e.target.value);
+                      if (e.target.value) {
+                        setBugsError("");
+                      }
                     }}
                   >
+                    <option value="">Select</option>
                     <option value="Frontend">Frontend</option>
                     <option value="Backend">Backend</option>
                     <option value="UI">UI</option>
@@ -354,6 +415,7 @@ const Home = () => {
                   </button>
                 </div>
               </div>
+              <p className="h-5 text-red-600 ml-4">{bugsError}</p>
             </div>
           </div>
         ) : (
@@ -362,78 +424,80 @@ const Home = () => {
 
         {/* Table for fetching data from database */}
         {array.length > 0 ? (
-          <div className="flex lg:items-center lg:justify-center overflow-x-auto w-full  font-medium text-base">
-            <table className="border-gray-100 border rounded-lg overflow-hidden  mt-8 mb-2 min-w-[1050px] lg:w-[95%] mx-6 lg:mx-0  ">
-              <thead className="text-lg font-bold">
-                <tr className="bg-gray-200 text-gray-900 ">
-                  <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[50px] border-r-2 border-t-2">
-                    S.No
-                  </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[200px] border-r-2  border-t-2">
-                    Title
-                  </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-4 border-r-2 border-t-2">
-                    Description
-                  </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-4 w-[170px] border-r-2 border-t-2">
-                    Bugs Found at
-                  </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[100px] border-r-2 border-t-2">
-                    Status
-                  </th>
-                  <th className="border-gray-200 border-b-2 px-4 py-4 w-[170px] border-t-2">
-                    Created at
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {array.map((arr, index) => (
-                  <tr
-                    key={arr._id}
-                    className="text-center hover:bg-gray-200 bg-white text-[16px] text-gray-900"
-                  >
-                    <td className="border-gray-100 border-b-2 border-r-2 px-4 py-2">
-                      {index + 1 + "."}
-                    </td>
-                    <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 text-left">
-                      {arr.title}
-                    </td>
-                    <td className="border-gray-100 border-b-2 px-4 py-2 text-left border-r-2">
-                      {arr.description}
-                    </td>
-                    <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2">
-                      {arr.bugsFoundAt}
-                    </td>
-                    <td
-                      className={`border-gray-100 border-b-2 px-3 py-2 border-r-2 `}
+          <div className="flex xl:items-center xl:justify-center overflow-x-auto w-full  font-medium text-base">
+            <div className="min-w-[1150px] xl:w-[95%] mt-8 mb-2  mx-6 lg:ml-8 xl:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
+              <table className="w-full">
+                <thead className="text-lg font-bold">
+                  <tr className="bg-gray-200 text-gray-900 ">
+                    <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[50px] border-r-2 border-t-2">
+                      S.No
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[200px] border-r-2  border-t-2">
+                      Title
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-4 border-r-2 border-t-2">
+                      Description
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-4 w-[170px] border-r-2 border-t-2">
+                      Bugs Found at
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-4 md:w-[100px] border-r-2 border-t-2">
+                      Status
+                    </th>
+                    <th className="border-gray-200 border-b-2 px-4 py-4 w-[170px] border-t-2">
+                      Created at
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {array.map((arr, index) => (
+                    <tr
+                      key={arr._id}
+                      className="text-center hover:bg-gray-200 bg-white text-[16px] text-gray-900"
                     >
-                      <div
-                        className={`rounded-md px-2 py-1 
+                      <td className="border-gray-100 border-b-2 border-r-2 px-4 py-2">
+                        {index + 1 + "."}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2 text-left">
+                        {arr.title}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 text-left border-r-2">
+                        {arr.description}
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-4 py-2 border-r-2">
+                        {arr.bugsFoundAt}
+                      </td>
+                      <td
+                        className={`border-gray-100 border-b-2 px-3 py-2 border-r-2 `}
+                      >
+                        <div
+                          className={`rounded-md px-2 py-1 
                         ${arr.status === "open" ? "bg-yellow-100" : ""}
                         ${arr.status === "processing" ? "bg-pink-100" : ""}
                         ${arr.status === "resolved" ? "bg-blue-100" : ""}
                         ${arr.status === "closed" ? "bg-green-100" : ""}`}
-                      >
-                        {arr.status == "open" ? "Open" : ""}
-                        {arr.status == "processing" ? "Processing" : ""}
-                        {arr.status == "resolved" ? "Resolved" : ""}
-                        {arr.status == "closed" ? "Closed" : ""}
-                      </div>
-                    </td>
-                    <td className="border-gray-100 border-b-2 px-2 py-2 font-sans font-normal">
-                      {new Date(arr.createdAt).toLocaleString("en-GB", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                      })}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        >
+                          {arr.status == "open" ? "Open" : ""}
+                          {arr.status == "processing" ? "Processing" : ""}
+                          {arr.status == "resolved" ? "Resolved" : ""}
+                          {arr.status == "closed" ? "Closed" : ""}
+                        </div>
+                      </td>
+                      <td className="border-gray-100 border-b-2 px-2 py-2 font-sans font-normal">
+                        {new Date(arr.createdAt).toLocaleString("en-GB", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         ) : (
           <div className="flex items-center justify-center">

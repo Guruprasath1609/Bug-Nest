@@ -13,6 +13,7 @@ import WhiteBGImage from "../assets/WhiteBGImage.jpg"
 import BWLoginImage from '../assets/BWLoginImage.jpg'
 import GrayLogi from '../assets/GrayLogi.png'
 import BG from '../assets/BG.jpg'
+import { toast } from "sonner";
 
 const AboutPage = () => {
   const navigate = useNavigate();
@@ -30,6 +31,10 @@ const AboutPage = () => {
   };
 
   const handleChange = (e) => {
+    if(e.target.name){
+      setNoEmail('')
+      setNoPassword('')
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -43,6 +48,22 @@ const AboutPage = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
         formData
       );
+
+      toast.success("Logged in Successfully", {
+              style: {
+                background: "black",
+                color: "white",
+                border: "1px solid black",
+                borderRadius: "12px",
+                padding: "15px",
+                boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+                fontSize: "1rem",
+                fontWeight: "bold",
+                textAlign: "center",
+                marginTop: "30px",
+              },
+            });
+
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -66,9 +87,9 @@ const AboutPage = () => {
   return (
     <>
       {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
-      <div className="flex md:flex-row flex-col-reverse container items-center justify-center w-full md:h-screen">
+      <div className="flex md:flex-row flex-col-reverse  items-center justify-center w-full md:h-screen">
         {/* Image div */}
-        <div className="w-[485px] h-[550px] flex  items-center  justify-center md:w-[35%] md:h-screen bg-black ">
+        <div className="w-[485px] h-[550px] flex  items-center  justify-center md:w-[40%] md:h-screen bg-black ">
           {/* <div className="flex items-center justify-center bg-[rgb(44,69,80)] "> */}
           <img
             src={GrayLogi}

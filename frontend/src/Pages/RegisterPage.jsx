@@ -14,6 +14,7 @@ import GrayRegi from '../assets/GrayRegi.png'
 import BlackRegi from '../assets/BlackRegi.png'
 import NewReg from '../assets/NewReg.png'
 import NewGrayReg from '../assets/NewGrayReg.png'
+import { toast } from "sonner";
 const RegisterPage = () => {
   const navigate = useNavigate();
 
@@ -33,6 +34,11 @@ const RegisterPage = () => {
   };
 
   const handleChange = (e) => {
+    if(e.target.name){
+      setNoEmailError('')
+      setNoNameError('')
+      setNoPasswordError('')
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -44,6 +50,20 @@ const RegisterPage = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
         formData
       );
+      toast.success("User Created Successfully", {
+        style: {
+          background: "black",
+          color: "white",
+          border: "1px solid black",
+          borderRadius: "12px",
+          padding: "15px",
+          boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+          fontSize: "1rem",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "30px",
+        },
+      });
       
       navigate("/");
     } catch (error) {
@@ -60,9 +80,9 @@ const RegisterPage = () => {
     <>
       {/* <div className="flex items-center justify-center w-full md:h-screen bg-black "> */}
 
-      <div className="flex md:flex-row flex-col-reverse  container items-center justify-center w-full md:h-screen">
+      <div className="flex md:flex-row flex-col-reverse  items-center justify-center w-full md:h-screen">
         {/* Image div */}
-        <div className="w-[485px] h-[600px] flex  items-center justify-center md:w-[35%] md:h-screen bg-black ">
+        <div className="w-[485px] h-[600px] flex  items-center justify-center md:w-[40%] md:h-screen bg-black ">
           {/* <div className="flex items-center justify-center  bg-[rgb(229,249,238)]"> */}
           <img
             src={NewGrayReg}

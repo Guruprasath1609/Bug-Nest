@@ -4,7 +4,7 @@ import { FiX } from "react-icons/fi";
 import { FaFilter } from "react-icons/fa";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import Bird from "../assets/Box.jpg";
+import Bird from "../assets/BlackBox.jpg";
 import { PiDotsNine } from "react-icons/pi";
 import { toast } from "sonner";
 import { FaPencilAlt } from "react-icons/fa";
@@ -21,7 +21,7 @@ const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isTicketDetailOpen, setIsTicketDetailOpen] = useState(true);
-  const [isTicketSlideOpen,setIsTicketSlideOpen]=useState(true)
+  const [isTicketSlideOpen, setIsTicketSlideOpen] = useState(true);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({
@@ -34,6 +34,35 @@ const Admin = () => {
   const [assignedToCount, setAssignedToCount] = useState({});
   const users = ["User-1", "User-2", "User-3", "User-4", "User-5"];
   const navigate = useNavigate();
+
+const usersArray = [
+  {
+    name: "Roman",
+    email: "roman@123.com",
+    tickets: assignedToCount["User-1"] || 0,
+  },
+  {
+    name: "Randy",
+    email: "Randy@123.com",
+    tickets: assignedToCount["User-2"] || 0,
+  },
+  {
+    name: "John",
+    email: "John@123.com",
+    tickets: assignedToCount["User-3"] || 0,
+  },
+  {
+    name: "Peter",
+    email: "Peter@123.com",
+    tickets: assignedToCount["User-4"] || 0,
+  },
+  {
+    name: "Michael",
+    email: "Michael@123.com",
+    tickets: assignedToCount["User-5"] || 0,
+  },
+];
+
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -61,7 +90,7 @@ const Admin = () => {
 
   const handleTicketDetail = () => {
     setIsTicketDetailOpen(!isTicketDetailOpen);
-    setIsTicketSlideOpen(!isTicketSlideOpen)
+    setIsTicketSlideOpen(!isTicketSlideOpen);
   };
 
   useEffect(() => {
@@ -111,12 +140,26 @@ const Admin = () => {
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("userToken");
+    toast.success("Logout Successfully", {
+      style: {
+        background: "black",
+        color: "white",
+        border: "1px solid black",
+        borderRadius: "12px",
+        padding: "15px",
+        boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+        fontSize: "1rem",
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: "30px",
+      },
+    });
     navigate("/");
   };
 
   const handleUpdate = async (id) => {
     const updateTicket = updates[id];
-    if(!updateTicket){
+    if (!updateTicket) {
       return toast.error("Please Select values to update", {
         style: {
           background: "black",
@@ -154,8 +197,8 @@ const Admin = () => {
           fontSize: "1rem",
           fontWeight: "bold",
           textAlign: "center",
-          marginTop:'30px'
-        }
+          marginTop: "30px",
+        },
       });
       setRefresh((prev) => !prev);
     } catch (error) {
@@ -331,7 +374,7 @@ const Admin = () => {
           </div>
         }
 
-        <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-8 md:ml-[25px] lg:ml-[40px] ">
+        <div className="  pt-20 flex  flex-col md:flex-row  items-center justify-start mb-4 md:ml-[25px] lg:ml-[40px] ">
           <div className="flex md:flex-row   gap-5">
             <h1 className="text-lg border-2 py-3  px-4 border-gray-400 w-[180px] rounded-lg">
               All Tickets:
@@ -374,12 +417,13 @@ const Admin = () => {
         {isTicketSlideOpen && (
           <div className="flex items-center justify-center ">
             <div
-              className={` transform transition-transform duration-700 ease-in-out  flex px-20 lg:px-2 justify-center gap-10   lg:flex-row  lg:items-end items-center flex-col z-20  lg:top-[10%] top-12 border-gray-900  bg-gray-100 p-8  w-[484px]  lg:w-full lg:mx-[42px] mt-2 rounded-xl lg:mt-0 border-4 
+              className={` transform transition-transform duration-700 ease-in-out  flex  justify-start  md:flex-row items-center flex-col z-20  lg:top-[10%] top-12   bg-gray-100 p-8    w-full rounded-xl lg:mt-0  lg:ml-2
+              
             
             ${
               isTicketDetailOpen
                 ? "translate-x-0  "
-                : "-translate-x-full  overflow-hidden left-0 mr-96"
+                : "-translate-x-full   left-0"
             }
 
           `}
@@ -388,65 +432,89 @@ const Admin = () => {
               className="absolute w-8 h-8 top-1 right-2 text-gray-700 cursor-pointer hover:text-black"
               onClick={handleTicketDetail}
             /> */}
-              <div className="h-[250px] w-[300px] lg:w-[250px] xl:w-[300px] bg-gray-800  flex items-start justify-start text-white p-8  rounded-lg shadow-xl lg:p-6 xl:p-8">
-                <div>
-                  <h1 className="font-semibold text-xl  mb-8 ">
-                    Priority of the Tickets:
-                  </h1>
-                  <h1 className="text-lg ">
-                    <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
-                      Low
-                    </span>{" "}
-                    : {priorityCount.Low || 0}
-                  </h1>
-                  <h1 className="text-lg  mt-3">
-                    <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
-                      Medium
-                    </span>{" "}
-                    : {priorityCount.Medium || 0}
-                  </h1>
-                  <h1 className="text-lg  mt-3">
-                    <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
-                      High
-                    </span>{" "}
-                    : {priorityCount.High || 0}
-                  </h1>
+              <div className="flex gap-10 lg:flex-row flex-col justify-start items-center ">
+                <div className="  bg-gray-100  flex items-start justify-start text-black p-4  rounded-lg border-2 border-gray-400 ">
+                  <div>
+                    <h1 className="font-medium text-lg mb-6 w-full border-b-2 border-gray-400 pb-2">
+                      Priority of the Tickets:
+                    </h1>
+                    {/* <hr className="border-t-2 border-gray-400 w-[356px] mb-6 lg:w-[387px]" /> */}
+                    <div className="flex items-center justify-between gap-8">
+                      <h1 className="text-base flex items-center justify-between w-[150px]">
+                        <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black  ">
+                          Low
+                        </span>{" "}
+                        <span className="font-bold text-lg">
+                          {priorityCount.Low || 0}
+                        </span>
+                      </h1>
+                      <h1 className="text-base flex items-center justify-between w-[170px]">
+                        <span className="bg-pink-100 px-2 py-1 rounded-lg text-black ">
+                          Medium
+                        </span>{" "}
+                        <span className="font-bold text-lg">
+                          {priorityCount.Medium || 0}
+                        </span>
+                      </h1>
+                    </div>
+                    <h1 className="text-base  mt-5 flex items-center justify-between w-[150px]">
+                      <span className="bg-blue-100 px-2 py-1 rounded-lg text-black ">
+                        High
+                      </span>{" "}
+                      <span className="font-bold text-lg">
+                        {priorityCount.High || 0}
+                      </span>
+                    </h1>
+                  </div>
+                </div>
+
+                <div className="  bg-gray-100  text-black flex items-start justify-start p-4 rounded-lg  border-2 border-gray-400 ">
+                  <div className="">
+                    <h1 className="font-medium text-lg mb-6 w-full border-b-2 border-gray-400 pb-2  ">
+                      Status of the Tickets:
+                    </h1>
+                    {/* <hr className="border-t-2 border-gray-400 w-[356px] mb-6 lg:w-[387px]" /> */}
+                    <div className="flex items-center justify-between gap-8">
+                      <h1 className="text-base flex items-center justify-between w-[150px]">
+                        <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black ">
+                          Open
+                        </span>{" "}
+                        <span className="font-bold text-lg">
+                          {statusCount.open || 0}
+                        </span>
+                      </h1>
+                      <h1 className="text-base  flex items-center justify-between w-[170px]">
+                        <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
+                          Processing
+                        </span>{" "}
+                        <span className="font-bold text-lg">
+                          {statusCount.processing || 0}
+                        </span>
+                      </h1>
+                    </div>
+                    <div className="flex items-center justify-between gap-8">
+                      <h1 className="text-base  mt-5 flex items-center justify-between w-[150px]">
+                        <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
+                          Resolved
+                        </span>{" "}
+                        <span className="mr-1 font-bold text-lg">
+                          {statusCount.resolved || 0}
+                        </span>
+                      </h1>
+                      <h1 className="text-base  flex items-center justify-between w-[170px] mt-5">
+                        <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
+                          Closed
+                        </span>{" "}
+                        <span className="font-bold text-lg">
+                          {statusCount.closed || 0}
+                        </span>
+                      </h1>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="h-[300px] w-[325px] lg:w-[275px] xl:w-[325px] bg-gray-800  text-gray-800 flex items-start justify-start p-12 rounded-lg shadow-xl ">
-                <div className="">
-                  <h1 className="font-semibold text-xl mb-8 text-white ">
-                    Status of the Tickets:
-                  </h1>
-                  <h1 className="text-lg  text-white">
-                    <span className="bg-yellow-100 px-2 py-1 rounded-lg text-black">
-                      Open
-                    </span>{" "}
-                    : {statusCount.open || 0}
-                  </h1>
-                  <h1 className="text-lg mt-3  text-white">
-                    <span className="bg-pink-100 px-2 py-1 rounded-lg text-black">
-                      Processing
-                    </span>{" "}
-                    : {statusCount.processing || 0}
-                  </h1>
-                  <h1 className="text-lg  mt-3 text-white">
-                    <span className="bg-blue-100 px-2 py-1 rounded-lg text-black">
-                      Resolved
-                    </span>{" "}
-                    : {statusCount.resolved || 0}
-                  </h1>
-                  <h1 className="text-lg  mt-3 text-white">
-                    <span className="bg-green-100 px-2 py-1 rounded-lg text-black">
-                      Closed
-                    </span>{" "}
-                    : {statusCount.closed || 0}
-                  </h1>
-                </div>
-              </div>
-
-              <div className="h-[350px] w-[350px] lg:w-[310px] xl:w-[350px] bg-gray-800  text-white flex items-start justify-start p-16 rounded-lg shadow-xl  ">
+              {/* <div className="h-[350px] w-[350px] lg:w-[310px] xl:w-[350px] bg-gray-800  text-white flex items-start justify-start p-16 rounded-lg shadow-xl  ">
                 <div className="">
                   <h1 className="font-semibold text-xl  mb-7">
                     Assigned User List:
@@ -489,15 +557,74 @@ const Admin = () => {
                   </div>
                 </div>
               </div>
+            
+          */}
             </div>
           </div>
         )}
+
+        <div className="ml-[25px] mt-8 lg:ml-[40px] text-2xl font-bold">
+          Assigned User List:
+        </div>
+
+        <div className="flex xl:items-center xl:justify-center overflow-x-auto w-full  font-medium text-base ">
+          <div className="min-w-[1300px] xl:w-[95%] mt-8 mb-2  mx-6 lg:ml-8 xl:mx-0  border-2 border-gray-100 rounded-xl overflow-hidden">
+            <table className="w-full">
+              <thead className="text-[18px] font-bold">
+                <tr className="bg-gray-200 text-gray-900  ">
+                  <th className="border-gray-500  px-4 py-5 w-[50px] rounded-tl-lg">
+                    S.No
+                  </th>
+                  <th className="border-gray-200 border-b-2 px-4 py-5 lg:w-[400px] w-[250px]  ">
+                    Name
+                  </th>
+                  <th className="border-gray-200 border-b-2 px-4 py-5   lg:w-[500px] w-[250px] ">
+                    Email
+                  </th>
+                  <th className="border-gray-200 border-b-2 px-4 py-5 lg:w-[400px] w-[250px] ">
+                    No of Tickets Assigned
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {usersArray.map((arr, index) => (
+                  <tr
+                    key={arr._id}
+                    className="text-center hover:bg-gray-200 bg-white text-[16px]  "
+                  >
+                    <td className="border-gray-100 border-b-2 border-r-2 px-4 py-3 ">
+                      {index + 1 + "."}
+                    </td>
+                    <td className={`border-gray-100 border-b-2 px-4 py-3 border-r-2 text-left pl-[130px] xl:pl-[172px] `}>
+                      <div
+                        className={`px-1 py-1 text-md w-20 rounded-md text-center ${
+                          arr.name === "Roman" ? "bg-yellow-100" : ""
+                        }${arr.name === "Randy" ? "bg-pink-100" : ""}${
+                          arr.name === "John" ? "bg-blue-100" : ""
+                        }${arr.name === "Peter" ? "bg-green-100" : ""}${
+                          arr.name === "Michael" ? "bg-red-200" : ""
+                        }`}>
+                      {arr.name}
+                      </div>
+                    </td>
+                    <td className="border-gray-100 border-b-2 px-4 py-3 text-left pl-48 border-r-2">
+                      {arr.email}
+                    </td>
+                    <td className="border-gray-100 border-b-2 px-4 py-3 border-r-2 text-center font-bold ">
+                      {arr.tickets}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
         {/* Filters option */}
         <div className="flex gap-10 items-center mt-8">
           <div>
             <button
-              className="lg:ml-[40px] ml-[23px] text-lg flex  px-2 py-1  rounded-md bg-gray-800 text-white outline-none border-2 brder-gray-100"
+              className="lg:ml-[40px] ml-[23px] text-lg flex  px-4 py-2  rounded-md bg-gray-800 text-white outline-none "
               onClick={handleToggle}
             >
               <span>
@@ -513,7 +640,7 @@ const Admin = () => {
                 isOpen ? " translate-x-0 " : "-translate-x-full"
               }`}
             >
-              <div className="border-b-[3px] border-gray-800 flex items-center justify-between px-2 ">
+              <div className="border-b-2 border-gray-400 flex items-center justify-between px-2 ">
                 <h1 className="text-2xl font-bold  text-black ">Filters</h1>
 
                 <FiX
